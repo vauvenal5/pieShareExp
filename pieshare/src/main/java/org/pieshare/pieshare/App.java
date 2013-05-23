@@ -29,7 +29,7 @@ public class App
             if(command.startsWith("put"))
             {
                 String[] splited = command.split(" ");
-                PieceOfPie piece = new PieceOfPie();
+               PieceOfPie piece = new PieceOfPie();
                 piece.setName(splited[2]);
                 connector.getMap().put(splited[1], piece);
             }

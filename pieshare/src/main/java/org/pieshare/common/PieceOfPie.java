@@ -23,6 +23,10 @@ public class PieceOfPie implements Serializable
 		this.name = file.getName();
 		this.lastModified = file.lastModified();
 	}
+	
+	public PieceOfPie()
+	{
+	}
 
 	public String getName()
 	{
