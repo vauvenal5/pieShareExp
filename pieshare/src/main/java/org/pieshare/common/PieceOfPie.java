@@ -5,6 +5,7 @@
 package org.pieshare.common;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  *
@@ -12,7 +13,7 @@ import java.io.File;
  * 
  * Represents an File or Directory or cream for pie
  */
-public class PieceOfPie
+public class PieceOfPie implements Serializable
 {
 	private String name = "";
 	private long lastModified = 0;
