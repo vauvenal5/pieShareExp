@@ -4,6 +4,8 @@
  */
 package org.pieshare.common;
 
+import java.io.File;
+
 /**
  *
  * @author richy
@@ -15,6 +17,11 @@ public class PieceOfPie
 	private String name = "";
 	private long lastModified = 0;
 	
+	public PieceOfPie(File file)
+	{
+		this.name = file.getName();
+		this.lastModified = file.lastModified();
+	}
 
 	public String getName()
 	{
