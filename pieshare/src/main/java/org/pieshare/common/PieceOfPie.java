@@ -14,6 +14,7 @@ public class PieceOfPie
 {
 	private String name = "";
 	private long lastModified = 0;
+	
 
 	public String getName()
 	{
@@ -34,7 +35,4 @@ public class PieceOfPie
 	{
 		this.lastModified = lastModified;
 	}
-	
-	
-	
 }
