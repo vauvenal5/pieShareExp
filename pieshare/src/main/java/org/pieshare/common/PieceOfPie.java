@@ -16,6 +16,7 @@ public class PieceOfPie implements Serializable
 {
 	private String name = "";
 	private long lastModified = 0;
+	
 
 	public String getName()
 	{
@@ -36,7 +37,4 @@ public class PieceOfPie implements Serializable
 	{
 		this.lastModified = lastModified;
 	}
-	
-	
-	
 }
