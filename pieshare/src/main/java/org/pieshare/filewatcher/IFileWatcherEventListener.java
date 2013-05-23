@@ -5,6 +5,7 @@
 package org.pieshare.filewatcher;
 
 import java.util.EventListener;
+import org.pieshare.common.PieceOfPie;
 
 /**
  *
@@ -12,5 +13,6 @@ import java.util.EventListener;
  */
 public interface IFileWatcherEventListener extends EventListener
 {
+	public void fileChanged(PieceOfPie piePiece);
 	
 }
