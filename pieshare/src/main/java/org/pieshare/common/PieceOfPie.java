@@ -6,6 +6,7 @@ package org.pieshare.common;
 
 import java.io.File;
 import java.io.Serializable;
+import java.nio.file.WatchEvent;
 
 /**
  *
@@ -17,9 +18,11 @@ public class PieceOfPie implements Serializable
 {
 	private String name = "";
 	private long lastModified = 0;
+	private WatchEvent.Kind<?> kind = null;
 	
-	public PieceOfPie(File file)
+	public PieceOfPie(File file, WatchEvent.Kind<?> kind)
 	{
+		this.kind = kind;
 		this.name = file.getName();
 		this.lastModified = file.lastModified();
 	}

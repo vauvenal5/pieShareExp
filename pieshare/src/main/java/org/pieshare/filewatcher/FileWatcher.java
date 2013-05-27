@@ -12,6 +12,7 @@ import static java.nio.file.StandardWatchEventKinds.*;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.List;
 
 
 import javax.swing.event.EventListenerList;
@@ -43,7 +44,9 @@ public class FileWatcher implements Runnable
 		}
 
 		//ToDo: Decide from where the Path is comming. 
-		Path dir = new File("../..)").toPath();
+		
+		File file = new File("../");
+		Path dir = file.toPath();
 
 		WatchKey key = null;
 
@@ -54,6 +57,7 @@ public class FileWatcher implements Runnable
 		catch (IOException ex)
 		{
 			logger.debug("Not possible register watcher on directory/file. Err: " + ex.getMessage());
+			return;
 		}
 
 		for (;;)
@@ -65,43 +69,46 @@ public class FileWatcher implements Runnable
 			catch (InterruptedException ex)
 			{
 				logger.debug("Error thread sleep. Err: " + ex.getMessage());
+				return;
 			}
-			
-			for (WatchEvent<?> event : key.pollEvents())
-			{
-				WatchEvent.Kind<?> kind = event.kind();
 
-				// This key is registered only
-				// for ENTRY_CREATE events,
-				// but an OVERFLOW event can
-				// occur regardless if events
-				// are lost or discarded.
-				if (kind == OVERFLOW)
+			List<WatchEvent<?>> events = key.pollEvents();
+
+			if (events != null)
+			{
+
+				for (WatchEvent<?> event : events)
 				{
-					continue;
+					WatchEvent.Kind<?> kind = event.kind();
+
+					// This key is registered only
+					// for ENTRY_CREATE events,
+					// but an OVERFLOW event can
+					// occur regardless if events
+					// are lost or discarded.
+					if (kind == OVERFLOW)
+					{
+						continue;
+					}
+
+					// The filename is the
+					// context of the event.
+					WatchEvent<Path> ev = (WatchEvent<Path>) event;
+					Path filename = ev.context();
+
+					fireChangeEvent(new PieceOfPie(filename.toFile(), kind));
 				}
 
-				// The filename is the
-				// context of the event.
-				WatchEvent<Path> ev = (WatchEvent<Path>) event;
-				Path filename = ev.context();
-
-				fireChangeEvent(new PieceOfPie(filename.toFile()));
-
-			}
-
-			// Reset the key -- this step is critical if you want to
-			// receive further watch events.  If the key is no longer valid,
-			// the directory is inaccessible so exit the loop.
-			boolean valid = key.reset();
-			if (!valid)
-			{
-				break;
+				// Reset the key -- this step is critical if you want to
+				// receive further watch events.  If the key is no longer valid,
+				// the directory is inaccessible so exit the loop.
+				boolean valid = key.reset();
+				if (!valid)
+				{
+					break;
+				}
 			}
 		}
-
-
-
 
 	}
 
