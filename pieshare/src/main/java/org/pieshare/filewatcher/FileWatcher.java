@@ -21,9 +21,9 @@ import org.pieshare.common.PieceOfPie;
 
 /**
  *
- * @author richy
+ * @author Richard Leopold
  */
-public class FileWatcher implements Runnable
+public class FileWatcher implements Runnable, IFileWatcher
 {
 
 	private static final Logger logger = Logger.getLogger(FileWatcher.class);
