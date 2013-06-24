@@ -20,7 +20,7 @@
 	<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="true">
 		<property name="driverClassName" value="org.sqlite.JDBC"/>
 		<property name="url" value="jdbc:sqlite:test.db"/>
-		<property name="username" value="sa"/>
+		<property name="username" value="root"/>
 		<property name="password" value=""/>
 	</bean>
 </beans>

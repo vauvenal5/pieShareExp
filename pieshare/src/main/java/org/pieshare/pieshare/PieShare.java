@@ -6,6 +6,8 @@ package org.pieshare.pieshare;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javax.sql.DataSource;
+import org.pieshare.dao.TestConnection;
 import org.pieshare.dao.TestDao;
 import org.pieshare.filewatcher.FileWatcher;
 import org.springframework.context.ApplicationContext;
@@ -23,9 +25,15 @@ public class PieShare
 	
 	public void start()
 	{
+		
+		//TestConnection k = new TestConnection();
+		//k.getCon();
+		
 		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 		
-		TestDao t = (TestDao)context.getBean("testDao");
+		TestDao testDao = (TestDao)context.getBean("testDao");
+		
+		
 		
 		//FileWatcher watcher = new FileWatcher();
 		
