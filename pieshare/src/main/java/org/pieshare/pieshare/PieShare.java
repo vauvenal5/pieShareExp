@@ -6,7 +6,10 @@ package org.pieshare.pieshare;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.pieshare.dao.TestDao;
 import org.pieshare.filewatcher.FileWatcher;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -20,9 +23,13 @@ public class PieShare
 	
 	public void start()
 	{
-		FileWatcher watcher = new FileWatcher();
+		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 		
-		executorService.execute(watcher);
+		TestDao t = (TestDao)context.getBean("testDao");
+		
+		//FileWatcher watcher = new FileWatcher();
+		
+		//executorService.execute(watcher);
 	}
 	
 	public static void main(String[] args)
