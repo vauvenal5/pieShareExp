@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package PieShare;
+package org.pieshare.pieshare;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
