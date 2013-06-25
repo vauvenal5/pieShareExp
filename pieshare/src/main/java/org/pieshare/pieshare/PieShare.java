@@ -22,6 +22,8 @@ public class PieShare
 	
 	public void start()
 	{
+                //ToDoSv: check DB for PID and start Client or Server mode
+                //ToDoSv: write PID to DB
 		
 		//TestConnection k = new TestConnection();
 		//k.getCon();
