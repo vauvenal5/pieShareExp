@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
  *
  * @author vauvenal5
  */
-public interface ICommands extends Remote 
+public interface ICommandService extends Remote 
 {
     void exit();
 }

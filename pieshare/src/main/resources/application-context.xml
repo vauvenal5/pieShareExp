@@ -11,10 +11,25 @@
 
 	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
+<!-- Controllers -->
+	<bean id="pieceptionController" class="org.pieshare.pieception.PieceptionController" lazy-init="true">
+		<property name="cmdServerService" ref="cmdServerService"/>
+		<property name="cmdClientService" ref="cmdClientService"/>
+	</bean>
 
+<!-- Services -->
+	<bean id="cmdServerService" class="org.pieshare.pieception.CmdServerService" lazy-init="true">
+	</bean>
+
+	<bean id="cmdClientService" class="org.pieshare.pieception.CmdClientService" lazy-init="true">
+	</bean>
+
+<!-- DAO's -->
 	<bean id="testDao" class="org.pieshare.dao.TestDao" lazy-init="true">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
+
+<!-- Views -->
 
 <!-- Other Beans -->	
 	<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="true">

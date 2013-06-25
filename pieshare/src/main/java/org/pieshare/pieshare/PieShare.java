@@ -22,8 +22,7 @@ public class PieShare
 	
 	public void start()
 	{
-		//ToDoSv: check DB for PID and start Client or Server mode
-		//ToDoSv: write PID to DB
+		
 		
 		//TestConnection k = new TestConnection();
 		//k.getCon();
@@ -32,7 +31,9 @@ public class PieShare
 		
 		TestDao testDao = (TestDao)context.getBean("testDao");
 		
-		
+		//ToDoSv: check DB for PID and start Client or Server mode
+		//ToDoSv: write PID to DB
+		//IMPORTANT: allow startup of other then the PieceptionController only if PieceptionController gives the okay!!!
 		
 		//FileWatcher watcher = new FileWatcher();
 		
@@ -41,6 +42,8 @@ public class PieShare
 	
 	public static void main(String[] args)
 	{
+		//checkout Argparse4j
+		
 		PieShare pie = new PieShare();
 		pie.start();
 	}

@@ -8,12 +8,19 @@ package org.pieshare.pieception;
  *
  * @author vauvenal5
  */
-public class CmdClient implements Runnable
+public class CmdClientService implements ICmdClientService, Runnable, ICommandService
 {
     @Override
     public void run() 
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+	@Override
+	public void exit() 
+	{
+		//get remote object and delegate invocation
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
     
 }
