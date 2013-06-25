@@ -6,10 +6,7 @@ package org.pieshare.pieshare;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.sql.DataSource;
-import org.pieshare.dao.TestConnection;
 import org.pieshare.dao.TestDao;
-import org.pieshare.filewatcher.FileWatcher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

@@ -25,7 +25,6 @@ import org.pieshare.common.PieceOfPie;
  */
 public class FileWatcher implements Runnable, IFileWatcher
 {
-
 	private static final Logger logger = Logger.getLogger(FileWatcher.class);
 	private EventListenerList eventList = new EventListenerList();
 
@@ -112,16 +111,19 @@ public class FileWatcher implements Runnable, IFileWatcher
 
 	}
 
+	@Override
 	public void addFileChangeEventListener(IFileWatcherEventListener listener)
 	{
 		eventList.add(IFileWatcherEventListener.class, listener);
 	}
 
+	@Override
 	public void removeFileChangeEventListener(IFileWatcherEventListener listener)
 	{
 		eventList.remove(IFileWatcherEventListener.class, listener);
 	}
 
+	@Override
 	public void fireChangeEvent(PieceOfPie pieceOfPie)
 	{
 		Object[] listeners = eventList.getListenerList();
