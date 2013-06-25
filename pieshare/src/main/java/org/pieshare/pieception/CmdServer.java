@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.pieshare.pieception.cmdServer;
+package org.pieshare.pieception;
 
-import org.pieshare.pieception.pieception.ICommands;
+import org.pieshare.pieception.ICommands;
 
 /**
  *
