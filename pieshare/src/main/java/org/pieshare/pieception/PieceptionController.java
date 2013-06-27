@@ -4,20 +4,28 @@
  */
 package org.pieshare.pieception;
 
+import javax.annotation.PostConstruct;
+import org.pieshare.pieshare.IPieService;
+
 /**
  *
  * @author vauve_000
  */
 public class PieceptionController 
 {
-	private ICmdServerService serverService;
-	private ICmdClientService clientService;
-	//TODOSv: include MySelfDao!!!
+	private ICommandService serverService;
+	private ICommandService clientService;
+	private IPieService pieService;
 	private boolean startupAllowed;
-	private ICommandService commandService;
 	
 	public PieceptionController()
 	{}
+	
+	@PostConstruct
+	public void postPieceptionController()
+	{	
+		this.pieService.executeService(this.getCommandService());
+	}
 	
 	public boolean isStartupAllowed()
 	{
@@ -26,22 +34,25 @@ public class PieceptionController
 	
 	public ICommandService getCommandService()
 	{
-		return this.commandService;
+		if(this.pieService.isPieShareRunning())
+		{
+			return this.clientService;
+		}
+		
+		return this.serverService;
 	}
 	
-	/*public void setMySelfDao(dao)
+	public void setIPieService(IPieService service)
 	{
-		this.startupAllowed = dao.getPid ? null
-		this.commandService = (ICommandService) serverService ? ClientSrevice;
-		serverService ? ClientSrevice = null;
-	}*/
+		this.pieService = service;
+	}
 	
-	public void setCmdServerService(ICmdServerService service)
+	public void setCmdServerService(ICommandService service)
 	{
 		this.serverService = service;
 	}
 	
-	public void setCmdClientService(ICmdClientService service)
+	public void setCmdClientService(ICommandService service)
 	{
 		this.clientService = service;
 	}

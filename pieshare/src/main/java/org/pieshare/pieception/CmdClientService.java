@@ -8,7 +8,7 @@ package org.pieshare.pieception;
  *
  * @author vauvenal5
  */
-public class CmdClientService implements ICmdClientService, Runnable, ICommandService
+public class CmdClientService implements ICommandService
 {
     @Override
     public void run() 

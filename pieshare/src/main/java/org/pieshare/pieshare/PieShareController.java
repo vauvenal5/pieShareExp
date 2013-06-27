@@ -14,11 +14,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author richy
  */
-public class PieShare
+public class PieShareController
 {
-
-	protected ExecutorService executorService = Executors.newCachedThreadPool();
-
+	private IPieService pieService;
+	//protected ExecutorService executorService = Executors.newCachedThreadPool();
+	
+	public void setPieService(IPieService service)
+	{
+		this.pieService = service;
+	}
 	
 	public void start()
 	{
@@ -27,9 +31,13 @@ public class PieShare
 		//TestConnection k = new TestConnection();
 		//k.getCon();
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		//TestDao testDao = (TestDao)context.getBean("testDao");
 		
-		TestDao testDao = (TestDao)context.getBean("testDao");
+		if(pieService.isPieShareRunning())
+		{
+			//start client command mode do command and exit
+			System.exit(0);
+		}
 		
 		//ToDoSv: check DB for PID and start Client or Server mode
 		//ToDoSv: write PID to DB
@@ -42,9 +50,10 @@ public class PieShare
 	
 	public static void main(String[] args)
 	{
-		//checkout Argparse4j
+		//todo checkout Argparse4j
 		
-		PieShare pie = new PieShare();
-		pie.start();
+		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");        
+        PieShareController controller = (PieShareController) context.getBean("appController");        
+        controller.start();
 	}
 }

@@ -13,6 +13,10 @@
 
 <!-- Controllers -->
 	<bean id="pieceptionController" class="org.pieshare.pieception.PieceptionController" lazy-init="true">
+		<property name="pieService" ref="pieService"/>
+	</bean>
+	
+	<bean id="pieceptionController" class="org.pieshare.pieception.PieceptionController" lazy-init="true">
 		<property name="cmdServerService" ref="cmdServerService"/>
 		<property name="cmdClientService" ref="cmdClientService"/>
 	</bean>
@@ -22,6 +26,9 @@
 	</bean>
 
 	<bean id="cmdClientService" class="org.pieshare.pieception.CmdClientService" lazy-init="true">
+	</bean>
+
+	<bean id="pieService" class="org.pieshare.pieshare.PieService" lazy-init="true">
 	</bean>
 
 <!-- DAO's -->
