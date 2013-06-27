@@ -16,7 +16,9 @@ public interface IPieService
 	
 	String getPieceptionBindingName();
 	
-	int getPieceptionPort();
+	String getPieceptionRegistryHost();
+	
+	int getPieceptionRegistryPort();
 	
 	<T> T getBean(Class<T> type);
 }

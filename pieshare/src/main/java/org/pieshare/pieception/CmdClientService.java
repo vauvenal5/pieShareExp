@@ -4,23 +4,55 @@
  */
 package org.pieshare.pieception;
 
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.pieshare.filewatcher.FileWatcher;
+import org.pieshare.pieshare.IPieService;
+
 /**
  *
  * @author vauvenal5
  */
 public class CmdClientService implements ICommandService
 {
+	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(FileWatcher.class);
+	private Registry registry;
+	private ICommandService serverService;
+	private IPieService pieService;
+	
     @Override
     public void run() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getService();
     }
 
 	@Override
 	public void exit() 
 	{
-		//get remote object and delegate invocation
-		throw new UnsupportedOperationException("Not supported yet.");
+		this.serverService.exit();
 	}
     
+	private void getService()
+	{
+		try 
+		{
+			this.registry = LocateRegistry.getRegistry(this.pieService.getPieceptionRegistryHost(), this.pieService.getPieceptionRegistryPort());
+			this.serverService = (ICommandService) this.registry.lookup(this.pieService.getPieceptionBindingName());
+		} 
+		catch (NotBoundException ex) 
+		{
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
+		} 
+		catch (RemoteException ex) 
+		{
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
+		}
+	    
+	}
+	
 }

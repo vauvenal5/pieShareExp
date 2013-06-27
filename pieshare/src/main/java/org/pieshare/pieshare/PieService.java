@@ -26,7 +26,8 @@ public class PieService implements IPieService, ApplicationContextAware
 	}
 
 	@Override
-	public boolean isPieShareRunning() {
+	public boolean isPieShareRunning() 
+	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -37,12 +38,8 @@ public class PieService implements IPieService, ApplicationContextAware
 	}
 
 	@Override
-	public String getPieceptionBindingName() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public int getPieceptionPort() {
+	public String getPieceptionBindingName() 
+	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -56,6 +53,18 @@ public class PieService implements IPieService, ApplicationContextAware
 	public void setApplicationContext(ApplicationContext ac) 
 	{
 		this.context = context;
+	}
+
+	@Override
+	public String getPieceptionRegistryHost() 
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public int getPieceptionRegistryPort() 
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
 }

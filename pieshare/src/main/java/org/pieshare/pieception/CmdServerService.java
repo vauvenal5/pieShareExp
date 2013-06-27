@@ -27,23 +27,21 @@ public class CmdServerService implements ICommandService
     @Override
     public void exit() 
     {
-		//execute stuff
+		//todo sv: implementen shutdown event chain like in dslab
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void run() 
     {
-		
-        //ToDoSv: register service
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        registerService();;
     }
 	
 	private void registerService()
 	{
 		try 
 		{
-			this.registry = LocateRegistry.createRegistry(this.pieService.getPieceptionPort());
+			this.registry = LocateRegistry.createRegistry(this.pieService.getPieceptionRegistryPort());
 			this.registry.rebind(this.pieService.getPieceptionBindingName(), this);
 		} 
 		catch (RemoteException ex) 

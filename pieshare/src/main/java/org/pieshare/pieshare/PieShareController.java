@@ -17,7 +17,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class PieShareController
 {
 	private IPieService pieService;
-	//protected ExecutorService executorService = Executors.newCachedThreadPool();
+	//protected ExecutorService executorService = Executors.newCachedThreadPool(); now in pieService!!!
 	
 	public void setPieService(IPieService service)
 	{
@@ -31,7 +31,7 @@ public class PieShareController
 		//TestConnection k = new TestConnection();
 		//k.getCon();
 		
-		//TestDao testDao = (TestDao)context.getBean("testDao");
+		//TestDao testDao = (TestDao)context.getBean("testDao"); //pieService is context aware!!! see pieService
 		
 		if(pieService.isPieShareRunning())
 		{
