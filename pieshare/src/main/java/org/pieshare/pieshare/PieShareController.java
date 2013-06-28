@@ -7,6 +7,7 @@ package org.pieshare.pieshare;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.pieshare.dao.TestDao;
+import org.pieshare.pieception.PieceptionController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -26,18 +27,18 @@ public class PieShareController
 	
 	public void start()
 	{
-		
-		
+		PieceptionController controller = (PieceptionController) pieService.getBean(PieceptionController.class);       
+		pieService.shutdown();
 		//TestConnection k = new TestConnection();
 		//k.getCon();
 		
 		//TestDao testDao = (TestDao)context.getBean("testDao"); //pieService is context aware!!! see pieService
 		
-		if(pieService.isPieShareRunning())
+		/*if(pieService.isPieShareRunning())
 		{
 			//start client command mode do command and exit
 			System.exit(0);
-		}
+		}*/
 		
 		//ToDoSv: check DB for PID and start Client or Server mode
 		//ToDoSv: write PID to DB
@@ -48,12 +49,18 @@ public class PieShareController
 		//executorService.execute(watcher);
 	}
 	
+	public void setApplicationContext(ApplicationContext context)
+	{
+		this.pieService.setApplicationContext(context);
+	}
+	
 	public static void main(String[] args)
 	{
 		//todo checkout Argparse4j
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");        
-        PieShareController controller = (PieShareController) context.getBean("appController");        
+        PieShareController controller = (PieShareController) context.getBean("pieShareController");  
+		controller.setApplicationContext(context);
         controller.start();
 	}
 }

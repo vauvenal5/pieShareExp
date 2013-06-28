@@ -4,14 +4,13 @@
  */
 package org.pieshare.pieception;
 
-import java.rmi.AccessException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.pieshare.filewatcher.FileWatcher;
-import org.pieshare.pieception.ICommandService;
+import java.util.EventListener;
+import org.pieshare.common.eventBase.IEventBaseService;
+import org.pieshare.common.eventBase.EventCallback;
+import org.pieshare.common.events.ShutdownEvent;
 import org.pieshare.pieshare.IPieService;
 
 /**
@@ -20,21 +19,22 @@ import org.pieshare.pieshare.IPieService;
  */
 public class CmdServerService implements ICommandService
 {
-	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(FileWatcher.class);
+	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CmdServerService.class);
 	private Registry registry;
 	private IPieService pieService;
 	
     @Override
+	@EventCallback(eventClass=ShutdownEvent.class)
     public void exit() 
     {
 		//todo sv: implementen shutdown event chain like in dslab
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("SVETI IS GREAT!"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void run() 
     {
-        registerService();;
+        //registerService();;
     }
 	
 	private void registerService()
@@ -48,5 +48,10 @@ public class CmdServerService implements ICommandService
 		{
 			logger.debug("Pieception failed! Err: " + ex.getMessage());
 		} 
+	}
+	
+	public void setPieService(IPieService service)
+	{
+		this.pieService = service;
 	}
 }

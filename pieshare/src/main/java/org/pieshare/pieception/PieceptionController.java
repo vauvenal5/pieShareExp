@@ -42,7 +42,7 @@ public class PieceptionController
 		return this.serverService;
 	}
 	
-	public void setIPieService(IPieService service)
+	public void setPieService(IPieService service)
 	{
 		this.pieService = service;
 	}

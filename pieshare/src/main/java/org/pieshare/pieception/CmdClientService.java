@@ -4,14 +4,10 @@
  */
 package org.pieshare.pieception;
 
-import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.pieshare.filewatcher.FileWatcher;
 import org.pieshare.pieshare.IPieService;
 
 /**
@@ -20,7 +16,7 @@ import org.pieshare.pieshare.IPieService;
  */
 public class CmdClientService implements ICommandService
 {
-	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(FileWatcher.class);
+	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CmdClientService.class);
 	private Registry registry;
 	private ICommandService serverService;
 	private IPieService pieService;

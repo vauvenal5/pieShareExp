@@ -12,23 +12,29 @@
 	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
 <!-- Controllers -->
-	<bean id="pieceptionController" class="org.pieshare.pieception.PieceptionController" lazy-init="true">
+	<bean id="pieShareController" class="org.pieshare.pieshare.PieShareController" lazy-init="true">
 		<property name="pieService" ref="pieService"/>
 	</bean>
 	
 	<bean id="pieceptionController" class="org.pieshare.pieception.PieceptionController" lazy-init="true">
 		<property name="cmdServerService" ref="cmdServerService"/>
 		<property name="cmdClientService" ref="cmdClientService"/>
+		<property name="pieService" ref="pieService"/>
 	</bean>
 
 <!-- Services -->
 	<bean id="cmdServerService" class="org.pieshare.pieception.CmdServerService" lazy-init="true">
+		<property name="pieService" ref="pieService"/>
 	</bean>
 
 	<bean id="cmdClientService" class="org.pieshare.pieception.CmdClientService" lazy-init="true">
 	</bean>
 
 	<bean id="pieService" class="org.pieshare.pieshare.PieService" lazy-init="true">
+		<property name="eventBaseService" ref="eventBaseService"/>
+	</bean>
+
+	<bean id="eventBaseService" class="org.pieshare.common.eventBase.EventBaseService" scope="prototype" lazy-init="true">
 	</bean>
 
 <!-- DAO's -->

@@ -4,15 +4,18 @@
  */
 package org.pieshare.pieshare;
 
+import org.pieshare.common.IRunnable;
+import org.springframework.context.ApplicationContextAware;
+
 /**
  *
  * @author vauve_000
  */
-public interface IPieService 
+public interface IPieService extends ApplicationContextAware
 {
 	boolean isPieShareRunning();
 	
-	void executeService(Runnable service);
+	void executeService(IRunnable service);
 	
 	String getPieceptionBindingName();
 	
@@ -21,4 +24,6 @@ public interface IPieService
 	int getPieceptionRegistryPort();
 	
 	<T> T getBean(Class<T> type);
+	
+	void shutdown();
 }
