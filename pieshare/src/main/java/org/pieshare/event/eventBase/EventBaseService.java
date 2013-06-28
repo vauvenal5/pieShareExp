@@ -4,12 +4,15 @@
  */
 package org.pieshare.event.eventBase;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.pieshare.exceptions.NoCallbackPointException;
 
 /**
@@ -67,7 +70,7 @@ public class EventBaseService implements IEventBaseService
 	}
 	
 	@Override
-	public void fireEvent(Class eventClass, Object source)
+	public void fireEvent(Class eventClass, Object source, Object... args)
 	{
 		List<Object> listeners = this.listenerList.get(eventClass);
 		
@@ -91,7 +94,13 @@ public class EventBaseService implements IEventBaseService
 							if(a.sourceClass() != Class.class)
 							{
 								//invoke handler which wants the source object
-								m.invoke(l, a.sourceClass().cast(source));
+								for(Constructor c: eventClass.getConstructors())
+								{
+									if(c.getParameterTypes().length == args.length + 1)
+									{
+										m.invoke(l, c.newInstance(source, args));
+									}
+								}
 							}
 							else
 							{
@@ -100,6 +109,10 @@ public class EventBaseService implements IEventBaseService
 							}
 							break;
 						} 
+						catch (InstantiationException ex) 
+						{
+							Logger.getLogger(EventBaseService.class.getName()).log(Level.SEVERE, null, ex);
+						}
 						catch (IllegalAccessException | IllegalArgumentException ex) 
 						{
 							logger.debug("Event management failed! Err: " + ex.getMessage());

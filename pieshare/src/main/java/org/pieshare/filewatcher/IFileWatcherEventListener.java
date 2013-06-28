@@ -4,6 +4,7 @@
  */
 package org.pieshare.filewatcher;
 
+import org.pieshare.event.events.FileWatcherEvent;
 import java.util.EventListener;
 
 /**

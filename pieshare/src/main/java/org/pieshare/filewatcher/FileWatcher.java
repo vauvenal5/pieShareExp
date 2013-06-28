@@ -4,6 +4,7 @@
  */
 package org.pieshare.filewatcher;
 
+import org.pieshare.event.events.FileWatcherEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -130,7 +131,7 @@ public class FileWatcher implements Runnable, IFileWatcher
 
 		for (Object o : listeners)
 		{
-			((IFileWatcherEventListener) o).fileChanged(new FileWatcherEvent(pieceOfPie, this));
+			((IFileWatcherEventListener) o).fileChanged(new FileWatcherEvent(this, pieceOfPie));
 		}
 	}
 }

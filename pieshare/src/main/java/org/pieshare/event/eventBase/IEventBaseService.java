@@ -14,5 +14,5 @@ public interface IEventBaseService
 {
 	public void addEventListener(Class eventClass, Object listener);
 	public void removeShutdownEventListener(Class eventClass, Object listener);
-	public void fireEvent(Class eventClass, Object source);
+	public void fireEvent(Class eventClass, Object source, Object... args);
 }
