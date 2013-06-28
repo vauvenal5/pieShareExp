@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.pieshare.common.eventBase;
+package org.pieshare.event.eventBase;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

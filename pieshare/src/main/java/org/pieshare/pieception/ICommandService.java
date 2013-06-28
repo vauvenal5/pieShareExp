@@ -6,13 +6,12 @@ package org.pieshare.pieception;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import org.pieshare.common.IRunnable;
 
 /**
  *
  * @author vauvenal5
  */
-public interface ICommandService extends Remote, IRunnable
+public interface ICommandService extends Remote, Runnable
 {
     void exit();
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.pieshare.common.eventBase;
+package org.pieshare.event.eventBase;
 
 import java.util.EventListener;
 
@@ -12,7 +12,7 @@ import java.util.EventListener;
  */
 public interface IEventBaseService 
 {
-	public void addEventListener(Class eventClass, EventListener listener);
-	public void removeShutdownEventListener(Class eventClass, EventListener listener);
+	public void addEventListener(Class eventClass, Object listener);
+	public void removeShutdownEventListener(Class eventClass, Object listener);
 	public void fireEvent(Class eventClass, Object source);
 }

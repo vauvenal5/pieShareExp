@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.pieshare.common.eventBase;
+package org.pieshare.event.eventBase;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
+import org.pieshare.exceptions.NoCallbackPointException;
 
 /**
  *
@@ -18,25 +19,46 @@ import java.util.List;
 public class EventBaseService implements IEventBaseService
 {
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(EventBaseService.class);
-	private HashMap<Class, List<EventListener>> listenerList = new HashMap<>();
+	private HashMap<Class, List<Object>> listenerList = new HashMap<>();
+	
+	private boolean checkForAnnotation(Class eventClass, Class listenerClass)
+	{
+		for(Method m: listenerClass.getMethods())
+		{
+			if(m.isAnnotationPresent(EventCallback.class))
+			{
+				if(m.getAnnotation(EventCallback.class).eventClass() == eventClass)
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 	
 	@Override
-	public void addEventListener(Class eventClass, EventListener listener)
+	public void addEventListener(Class eventClass, Object listener)
 	{
+		if(!checkForAnnotation(eventClass, listener.getClass()))
+		{
+			//TODO: throw Exception
+		}
+		
 		if(this.listenerList.containsKey(eventClass))
 		{
 			this.listenerList.get(eventClass).add(listener);
 			return;
 		}
 		
-		List<EventListener> list = new ArrayList<>();
+		List<Object> list = new ArrayList<>();
 		list.add(listener);
 		
 		this.listenerList.put(eventClass, list);
 	}
 	
 	@Override
-	public void removeShutdownEventListener(Class eventClass, EventListener listener)
+	public void removeShutdownEventListener(Class eventClass, Object listener)
 	{
 		if(this.listenerList.containsKey(eventClass))
 		{
@@ -47,14 +69,14 @@ public class EventBaseService implements IEventBaseService
 	@Override
 	public void fireEvent(Class eventClass, Object source)
 	{
-		List<EventListener> listeners = this.listenerList.get(eventClass);
+		List<Object> listeners = this.listenerList.get(eventClass);
 		
 		if(listeners == null)
 		{
 			return;
 		}
 		
-		for(EventListener l: listeners)
+		for(Object l: listeners)
 		{
 			for(Method m: l.getClass().getMethods())
 			{
@@ -70,12 +92,12 @@ public class EventBaseService implements IEventBaseService
 							{
 								//invoke handler which wants the source object
 								m.invoke(l, a.sourceClass().cast(source));
-								break;
 							}
-							
-							//invoke empty handler
-							
-							m.invoke(l);
+							else
+							{
+								//invoke empty handler
+								m.invoke(l);
+							}
 							break;
 						} 
 						catch (IllegalAccessException | IllegalArgumentException ex) 

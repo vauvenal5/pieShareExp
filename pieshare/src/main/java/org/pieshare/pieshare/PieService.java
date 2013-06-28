@@ -4,11 +4,11 @@
  */
 package org.pieshare.pieshare;
 
+import java.util.EventListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.pieshare.common.IRunnable;
-import org.pieshare.common.eventBase.IEventBaseService;
-import org.pieshare.common.events.ShutdownEvent;
+import org.pieshare.event.eventBase.IEventBaseService;
+import org.pieshare.event.events.ShutdownEvent;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -37,9 +37,9 @@ public class PieService implements IPieService
 	}
 
 	@Override
-	public void executeService(IRunnable service) 
+	public void executeService(Runnable service) 
 	{
-		this.eventBaseService.addEventListener(ShutdownEvent.class, service);
+		this.addShutdownEventListener(service);
 		this.executorService.execute(service);
 	}
 
@@ -82,5 +82,17 @@ public class PieService implements IPieService
 	public void setEventBaseService(IEventBaseService service)
 	{
 		this.eventBaseService = service;
+	}
+
+	@Override
+	public void addShutdownEventListener(Object listener) 
+	{
+		this.eventBaseService.addEventListener(ShutdownEvent.class, listener);
+	}
+
+	@Override
+	public void removeShutdownEventListener(Object listener) 
+	{
+		this.eventBaseService.removeShutdownEventListener(ShutdownEvent.class, listener);
 	}
 }

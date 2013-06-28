@@ -8,9 +8,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.EventListener;
-import org.pieshare.common.eventBase.IEventBaseService;
-import org.pieshare.common.eventBase.EventCallback;
-import org.pieshare.common.events.ShutdownEvent;
+import org.pieshare.event.eventBase.IEventBaseService;
+import org.pieshare.event.eventBase.EventCallback;
+import org.pieshare.event.events.ShutdownEvent;
 import org.pieshare.pieshare.IPieService;
 
 /**

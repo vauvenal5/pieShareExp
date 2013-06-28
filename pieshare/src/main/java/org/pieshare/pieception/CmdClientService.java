@@ -8,6 +8,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import org.pieshare.event.eventBase.EventCallback;
+import org.pieshare.event.events.ShutdownEvent;
 import org.pieshare.pieshare.IPieService;
 
 /**
@@ -26,6 +28,12 @@ public class CmdClientService implements ICommandService
     {
         getService();
     }
+	
+	@EventCallback(eventClass=ShutdownEvent.class)
+	public void shutdown()
+	{
+		//TODO: shutdown Runnable
+	}
 
 	@Override
 	public void exit() 

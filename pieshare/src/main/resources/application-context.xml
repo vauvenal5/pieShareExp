@@ -34,7 +34,7 @@
 		<property name="eventBaseService" ref="eventBaseService"/>
 	</bean>
 
-	<bean id="eventBaseService" class="org.pieshare.common.eventBase.EventBaseService" scope="prototype" lazy-init="true">
+	<bean id="eventBaseService" class="org.pieshare.event.eventBase.EventBaseService" scope="prototype" lazy-init="true">
 	</bean>
 
 <!-- DAO's -->
