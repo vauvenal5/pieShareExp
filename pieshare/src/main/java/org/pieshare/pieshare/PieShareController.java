@@ -57,6 +57,7 @@ public class PieShareController
 	public static void main(String[] args)
 	{
 		//todo checkout Argparse4j
+            //todo checkout apache shiro
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");        
         PieShareController controller = (PieShareController) context.getBean("pieShareController");  
