@@ -13,10 +13,15 @@ import java.lang.annotation.Target;
  *
  * @author vauve_000
  */
-@Target(value={ElementType.METHOD})
+@Target(value =
+{
+	ElementType.METHOD
+})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventCallback
-{	
+{
+
 	Class eventClass();
+
 	Class sourceClass() default Class.class;
 }

@@ -14,17 +14,18 @@ import org.springframework.context.ApplicationContextAware;
  */
 public interface IPieService extends ApplicationContextAware, ISupportShutdownEvent
 {
+
 	boolean isPieShareRunning();
-	
+
 	void executeService(Runnable service);
-	
+
 	String getPieceptionBindingName();
-	
+
 	String getPieceptionRegistryHost();
-	
+
 	int getPieceptionRegistryPort();
-	
+
 	<T> T getBean(Class<T> type);
-	
+
 	void shutdown();
 }

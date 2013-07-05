@@ -12,7 +12,10 @@ import org.pieshare.common.PieceOfPie;
  */
 public interface IFileWatcher
 {
+
 	public void addFileChangeEventListener(IFileWatcherEventListener listener);
+
 	public void removeFileChangeEventListener(IFileWatcherEventListener listener);
+
 	public void fireChangeEvent(PieceOfPie pieceOfPie);
 }

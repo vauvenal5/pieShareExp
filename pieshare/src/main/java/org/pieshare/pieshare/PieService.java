@@ -20,78 +20,79 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class PieService implements IPieService
 {
+
 	private ExecutorService executorService;
 	private IPieDao pieDao;
 	private ApplicationContext context;
 	private IEventBaseService eventBaseService;
-	
+
 	public PieService()
 	{
 		this.executorService = Executors.newCachedThreadPool();
 	}
 
 	@Override
-	public boolean isPieShareRunning() 
+	public boolean isPieShareRunning()
 	{
 		return false;
 	}
 
 	@Override
-	public void executeService(Runnable service) 
+	public void executeService(Runnable service)
 	{
 		this.addShutdownEventListener(service);
 		this.executorService.execute(service);
 	}
 
 	@Override
-	public String getPieceptionBindingName() 
+	public String getPieceptionBindingName()
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public <T> T getBean(Class<T> type) 
+	public <T> T getBean(Class<T> type)
 	{
 		return context.getBean(type);
 	}
 
 	@Override
-	public void setApplicationContext(ApplicationContext context) 
+	public void setApplicationContext(ApplicationContext context)
 	{
 		this.context = context;
 	}
 
 	@Override
-	public String getPieceptionRegistryHost() 
+	public String getPieceptionRegistryHost()
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public int getPieceptionRegistryPort() 
+	public int getPieceptionRegistryPort()
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public void shutdown() 
+	public void shutdown()
 	{
 		this.eventBaseService.fireEvent(ShutdownEvent.class, this);
 	}
-	
+
 	public void setEventBaseService(IEventBaseService service)
 	{
 		this.eventBaseService = service;
 	}
 
 	@Override
-	public void addShutdownEventListener(Object listener) 
+	public void addShutdownEventListener(Object listener)
 	{
 		this.eventBaseService.addEventListener(ShutdownEvent.class, listener);
 	}
 
 	@Override
-	public void removeShutdownEventListener(Object listener) 
+	public void removeShutdownEventListener(Object listener)
 	{
 		this.eventBaseService.removeShutdownEventListener(ShutdownEvent.class, listener);
 	}

@@ -18,45 +18,45 @@ import org.pieshare.pieshare.IPieService;
  */
 public class CmdClientService implements ICommandService
 {
+
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CmdClientService.class);
 	private Registry registry;
 	private ICommandService serverService;
 	private IPieService pieService;
-	
-    @Override
-    public void run() 
-    {
-        getService();
-    }
-	
-	@EventCallback(eventClass=ShutdownEvent.class)
+
+	@Override
+	public void run()
+	{
+		getService();
+	}
+
+	@EventCallback(eventClass = ShutdownEvent.class)
 	public void shutdown()
 	{
 		//TODO: shutdown Runnable
 	}
 
 	@Override
-	public void exit() 
+	public void exit()
 	{
 		this.serverService.exit();
 	}
-    
+
 	private void getService()
 	{
-		try 
+		try
 		{
 			this.registry = LocateRegistry.getRegistry(this.pieService.getPieceptionRegistryHost(), this.pieService.getPieceptionRegistryPort());
 			this.serverService = (ICommandService) this.registry.lookup(this.pieService.getPieceptionBindingName());
-		} 
-		catch (NotBoundException ex) 
-		{
-			logger.debug("Pieception failed! Err: " + ex.getMessage());
-		} 
-		catch (RemoteException ex) 
+		}
+		catch (NotBoundException ex)
 		{
 			logger.debug("Pieception failed! Err: " + ex.getMessage());
 		}
-	    
+		catch (RemoteException ex)
+		{
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
+		}
+
 	}
-	
 }

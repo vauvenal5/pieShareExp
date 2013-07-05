@@ -13,5 +13,6 @@ import java.util.EventListener;
  */
 public interface IFileWatcherEventListener extends EventListener
 {
+
 	public void fileChanged(FileWatcherEvent event);
 }

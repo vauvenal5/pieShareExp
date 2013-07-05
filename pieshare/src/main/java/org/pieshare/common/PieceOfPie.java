@@ -11,22 +11,23 @@ import java.nio.file.WatchEvent;
 /**
  *
  * @author richy
- * 
+ *
  * Represents an File or Directory or cream for pie
  */
 public class PieceOfPie implements Serializable
 {
+
 	private String name = "";
 	private long lastModified = 0;
 	private WatchEvent.Kind<?> kind = null;
-	
+
 	public PieceOfPie(File file, WatchEvent.Kind<?> kind)
 	{
 		this.kind = kind;
 		this.name = file.getName();
 		this.lastModified = file.lastModified();
 	}
-	
+
 	public PieceOfPie()
 	{
 	}

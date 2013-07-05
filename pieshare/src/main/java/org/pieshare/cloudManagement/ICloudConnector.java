@@ -11,9 +11,10 @@ import org.pieshare.common.PieceOfPie;
  *
  * @author vauvenal5
  */
-public interface ICloudConnector 
+public interface ICloudConnector
 {
-    public boolean connectToCloud(String cloudId, String cloudPwd);
-    
-    public Map<String, PieceOfPie> getMap();
+
+	public boolean connectToCloud(String cloudId, String cloudPwd);
+
+	public Map<String, PieceOfPie> getMap();
 }

@@ -10,8 +10,10 @@ import java.util.EventListener;
  *
  * @author vauve_000
  */
-public interface ISupportShutdownEvent 
+public interface ISupportShutdownEvent
 {
+
 	void addShutdownEventListener(Object listener);
+
 	void removeShutdownEventListener(Object listener);
 }

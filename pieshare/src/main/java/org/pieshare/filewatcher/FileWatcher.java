@@ -26,6 +26,7 @@ import org.pieshare.common.PieceOfPie;
  */
 public class FileWatcher implements Runnable, IFileWatcher
 {
+
 	private static final Logger logger = Logger.getLogger(FileWatcher.class);
 	private EventListenerList eventList = new EventListenerList();
 
@@ -44,7 +45,7 @@ public class FileWatcher implements Runnable, IFileWatcher
 		}
 
 		//ToDo: Decide from where the Path is comming. 
-		
+
 		File file = new File("../");
 		Path dir = file.toPath();
 
