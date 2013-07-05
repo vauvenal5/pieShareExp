@@ -26,6 +26,10 @@
 	<bean id="cmdServerService" class="org.pieshare.pieception.CmdServerService" lazy-init="true">
 		<property name="pieService" ref="pieService"/>
 	</bean>
+	
+	<bean id="fileWatcherService" class="org.pieshare.filewatcher.FileWatcherService" lazy-init="true">
+		<property name="eventBaseService" ref="eventBaseService"/>
+	</bean>
 
 	<bean id="cmdClientService" class="org.pieshare.pieception.CmdClientService" lazy-init="true">
 	</bean>
@@ -45,10 +49,8 @@
 <!-- Views -->
 
 <!-- Other Beans -->	
-	<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="true">
+	<bean id="dataSource" destroy-method="close" class="org.pieshare.cloudManagement.pieDB.PieDB" lazy-init="true">
 		<property name="driverClassName" value="org.sqlite.JDBC"/>
 		<property name="url" value="jdbc:sqlite:test.db"/>
-		<property name="username" value="root"/>
-		<property name="password" value=""/>
 	</bean>
 </beans>

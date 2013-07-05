@@ -4,9 +4,7 @@
  */
 package org.pieshare.pieshare;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import org.pieshare.dao.TestDao;
+import org.pieshare.filewatcher.IFileWatcherService;
 import org.pieshare.pieception.PieceptionController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
