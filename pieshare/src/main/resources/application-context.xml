@@ -27,6 +27,16 @@
 		<property name="pieService" ref="pieService"/>
 	</bean>
 	
+	<bean id="appDataPropertiesReader" class="org.pieshare.propertiesreader.AppDataPropertiesReader" lazy-init="true">
+		<property name="directoryService" ref="directoryService"/>
+	</bean>
+	
+	<bean id="pieUserDatabaseManagementServie" class="org.pieshare.database.PieUserDatabaseManagementService" lazy-init="true">
+	</bean>
+	
+	<bean id="directoryService" class="org.pieshare.common.DirectoryService" lazy-init="true">
+	</bean>
+	
 	<bean id="fileWatcherService" class="org.pieshare.filewatcher.FileWatcherService" lazy-init="true">
 		<property name="eventBaseService" ref="eventBaseService"/>
 	</bean>
@@ -49,7 +59,7 @@
 	<!-- Views -->
 
 	<!-- Other Beans -->	
-	<bean id="dataSource" destroy-method="close" class="org.pieshare.cloudManagement.pieDB.PieDB" lazy-init="true">
+	<bean id="dataSource" destroy-method="close" class="org.pieshare.cloudManagement.pieDB.PieAppDB" lazy-init="true">
 		<property name="driverClassName" value="org.sqlite.JDBC"/>
 		<property name="url" value="jdbc:sqlite:test.db"/>
 	</bean>

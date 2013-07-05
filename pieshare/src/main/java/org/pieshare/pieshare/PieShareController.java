@@ -24,7 +24,7 @@ public class PieShareController
 		this.pieService = service;
 	}
 
-	public void start()
+	public void start(String[] args)
 	{
 		PieceptionController controller = (PieceptionController) pieService.getBean(PieceptionController.class);
 		pieService.shutdown();
@@ -48,9 +48,21 @@ public class PieShareController
 		//executorService.execute(watcher);
 	}
 
+	public void startServer(String[] args)
+	{
+	}
+
 	public void setApplicationContext(ApplicationContext context)
 	{
 		this.pieService.setApplicationContext(context);
+	}
+
+	private static void restart(String[] args)
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("application-context-server.xml");
+		PieShareController controller = (PieShareController) context.getBean("pieShareController");
+		controller.setApplicationContext(context);
+		controller.startServer(args);
 	}
 
 	public static void main(String[] args)
@@ -61,6 +73,6 @@ public class PieShareController
 		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 		PieShareController controller = (PieShareController) context.getBean("pieShareController");
 		controller.setApplicationContext(context);
-		controller.start();
+		controller.start(args);
 	}
 }
