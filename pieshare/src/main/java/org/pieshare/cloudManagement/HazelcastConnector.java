@@ -17,29 +17,27 @@ import org.pieshare.common.PieceOfPie;
 public class HazelcastConnector implements ICloudConnector
 {
 
-    private Map<String, PieceOfPie> cloudMap;
-    private String mapName = "pieCloud";
-    
-    public boolean connectToCloud(String cloudId, String cloudPwd) 
-    {
-        HazelcastInstance instance = Hazelcast.getHazelcastInstanceByName(mapName);
-        
-        if(instance == null)
-        {
-            Config config = new Config();
-            config.setInstanceName(cloudId);
-            instance = Hazelcast.newHazelcastInstance(config);
-        }
-        
-        this.cloudMap = instance.getMap(this.mapName);
-        
-        return true;
-    }
+	private Map<String, PieceOfPie> cloudMap;
+	private String mapName = "pieCloud";
 
-    public Map<String, PieceOfPie> getMap() 
-    {
-        return this.cloudMap;
-    }
-    
-    
+	public boolean connectToCloud(String cloudId, String cloudPwd)
+	{
+		HazelcastInstance instance = Hazelcast.getHazelcastInstanceByName(mapName);
+
+		if (instance == null)
+		{
+			Config config = new Config();
+			config.setInstanceName(cloudId);
+			instance = Hazelcast.newHazelcastInstance(config);
+		}
+
+		this.cloudMap = instance.getMap(this.mapName);
+
+		return true;
+	}
+
+	public Map<String, PieceOfPie> getMap()
+	{
+		return this.cloudMap;
+	}
 }

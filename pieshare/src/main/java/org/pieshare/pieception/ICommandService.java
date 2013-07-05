@@ -13,5 +13,6 @@ import java.rmi.RemoteException;
  */
 public interface ICommandService extends Remote, Runnable
 {
-    void exit();
+
+	void exit();
 }

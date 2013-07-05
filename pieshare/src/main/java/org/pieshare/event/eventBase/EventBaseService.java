@@ -21,82 +21,83 @@ import org.pieshare.exceptions.NoCallbackPointException;
  */
 public class EventBaseService implements IEventBaseService
 {
+
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(EventBaseService.class);
 	private HashMap<Class, List<Object>> listenerList = new HashMap<>();
-	
+
 	private boolean checkForAnnotation(Class eventClass, Class listenerClass)
 	{
-		for(Method m: listenerClass.getMethods())
+		for (Method m : listenerClass.getMethods())
 		{
-			if(m.isAnnotationPresent(EventCallback.class))
+			if (m.isAnnotationPresent(EventCallback.class))
 			{
-				if(m.getAnnotation(EventCallback.class).eventClass() == eventClass)
+				if (m.getAnnotation(EventCallback.class).eventClass() == eventClass)
 				{
 					return true;
 				}
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void addEventListener(Class eventClass, Object listener)
 	{
-		if(!checkForAnnotation(eventClass, listener.getClass()))
+		if (!checkForAnnotation(eventClass, listener.getClass()))
 		{
 			//TODO: throw Exception
 		}
-		
-		if(this.listenerList.containsKey(eventClass))
+
+		if (this.listenerList.containsKey(eventClass))
 		{
 			this.listenerList.get(eventClass).add(listener);
 			return;
 		}
-		
+
 		List<Object> list = new ArrayList<>();
 		list.add(listener);
-		
+
 		this.listenerList.put(eventClass, list);
 	}
-	
+
 	@Override
 	public void removeShutdownEventListener(Class eventClass, Object listener)
 	{
-		if(this.listenerList.containsKey(eventClass))
+		if (this.listenerList.containsKey(eventClass))
 		{
 			this.listenerList.get(eventClass).remove(listener);
 		}
 	}
-	
+
 	@Override
 	public void fireEvent(Class eventClass, Object source, Object... args)
 	{
 		List<Object> listeners = this.listenerList.get(eventClass);
-		
-		if(listeners == null)
+
+		if (listeners == null)
 		{
 			return;
 		}
-		
-		for(Object l: listeners)
+
+		for (Object l : listeners)
 		{
-			for(Method m: l.getClass().getMethods())
+			for (Method m : l.getClass().getMethods())
 			{
-				if(m.isAnnotationPresent(EventCallback.class))
+				if (m.isAnnotationPresent(EventCallback.class))
 				{
 					EventCallback a = m.getAnnotation(EventCallback.class);
-					
-					if(a.eventClass() == eventClass)
+
+					if (a.eventClass() == eventClass)
 					{
-						try 
+						try
 						{
-							if(a.sourceClass() != Class.class)
+							if (a.sourceClass() != Class.class)
 							{
 								//invoke handler which wants the source object
-								for(Constructor c: eventClass.getConstructors())
+								for (Constructor c : eventClass.getConstructors())
 								{
-									if(c.getParameterTypes().length == args.length + 1)
+									if (c.getParameterTypes().length == args.length + 1)
 									{
 										m.invoke(l, c.newInstance(source, args));
 									}
@@ -108,16 +109,16 @@ public class EventBaseService implements IEventBaseService
 								m.invoke(l);
 							}
 							break;
-						} 
-						catch (InstantiationException ex) 
+						}
+						catch (InstantiationException ex)
 						{
 							Logger.getLogger(EventBaseService.class.getName()).log(Level.SEVERE, null, ex);
 						}
-						catch (IllegalAccessException | IllegalArgumentException ex) 
+						catch (IllegalAccessException | IllegalArgumentException ex)
 						{
 							logger.debug("Event management failed! Err: " + ex.getMessage());
 						}
-						catch(InvocationTargetException ex)
+						catch (InvocationTargetException ex)
 						{
 							logger.debug("Event management failed! Err: " + ex.getTargetException().getMessage());
 						}

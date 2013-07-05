@@ -8,7 +8,6 @@ package org.pieshare.pieshare;
  *
  * @author vauve_000
  */
-public interface IPieDao 
+public interface IPieDao
 {
-	
 }

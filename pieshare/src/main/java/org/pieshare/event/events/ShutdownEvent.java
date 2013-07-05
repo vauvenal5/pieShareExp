@@ -10,10 +10,11 @@ import java.util.EventObject;
  *
  * @author vauve_000
  */
-public class ShutdownEvent  extends EventObject
+public class ShutdownEvent extends EventObject
 {
-	public ShutdownEvent(Object source) 
+
+	public ShutdownEvent(Object source)
 	{
-	    super(source);
+		super(source);
 	}
 }

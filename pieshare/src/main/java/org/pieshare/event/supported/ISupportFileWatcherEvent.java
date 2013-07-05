@@ -10,8 +10,10 @@ import org.pieshare.filewatcher.IFileWatcherEventListener;
  *
  * @author vauve_000
  */
-public interface ISupportFileWatcherEvent 
+public interface ISupportFileWatcherEvent
 {
+
 	public void addFileChangeEventListener(Object listener);
+
 	public void removeFileChangeEventListener(Object listener);
 }

@@ -13,8 +13,9 @@ import org.pieshare.common.PieceOfPie;
  */
 public class FileWatcherEvent extends EventObject
 {
+
 	private PieceOfPie piePiece;
-	
+
 	public FileWatcherEvent(Object source, PieceOfPie piePiece)
 	{
 		super(source);
@@ -24,5 +25,5 @@ public class FileWatcherEvent extends EventObject
 	public PieceOfPie getPiePiece()
 	{
 		return piePiece;
-	}	
+	}
 }

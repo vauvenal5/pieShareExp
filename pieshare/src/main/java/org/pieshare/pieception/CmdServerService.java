@@ -19,37 +19,38 @@ import org.pieshare.pieshare.IPieService;
  */
 public class CmdServerService implements ICommandService
 {
+
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CmdServerService.class);
 	private Registry registry;
 	private IPieService pieService;
-	
-    @Override
-	@EventCallback(eventClass=ShutdownEvent.class)
-    public void exit() 
-    {
-		//todo sv: implementen shutdown event chain like in dslab
-        throw new UnsupportedOperationException("SVETI IS GREAT!"); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void run() 
-    {
-        //registerService();;
-    }
-	
+	@Override
+	@EventCallback(eventClass = ShutdownEvent.class)
+	public void exit()
+	{
+		//todo sv: implementen shutdown event chain like in dslab
+		throw new UnsupportedOperationException("SVETI IS GREAT!"); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void run()
+	{
+		//registerService();;
+	}
+
 	private void registerService()
 	{
-		try 
+		try
 		{
 			this.registry = LocateRegistry.createRegistry(this.pieService.getPieceptionRegistryPort());
 			this.registry.rebind(this.pieService.getPieceptionBindingName(), this);
-		} 
-		catch (RemoteException ex) 
+		}
+		catch (RemoteException ex)
 		{
 			logger.debug("Pieception failed! Err: " + ex.getMessage());
-		} 
+		}
 	}
-	
+
 	public void setPieService(IPieService service)
 	{
 		this.pieService = service;
