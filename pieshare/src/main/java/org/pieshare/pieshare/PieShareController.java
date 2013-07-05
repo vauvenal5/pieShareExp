@@ -4,10 +4,7 @@
  */
 package org.pieshare.pieshare;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import org.pieshare.dao.TestDao;
-import org.pieshare.pieception.PieceptionController;
+import org.pieshare.commandParser.ICommandParserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -19,39 +16,45 @@ public class PieShareController
 {
 
 	private IPieService pieService;
-	//protected ExecutorService executorService = Executors.newCachedThreadPool(); now in pieService!!!
+	private ICommandParserService parserService;
 
 	public void setPieService(IPieService service)
 	{
 		this.pieService = service;
 	}
+	
+	public boolean restartAsServer()
+	{
+		return !this.pieService.isPieShareRunning();
+	}
+	
+	private void parseArgs(String[] args)
+	{
+		try
+		{
+			parserService.parseArgs(args);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 
 	public void start(String[] args)
 	{
-		PieceptionController controller = (PieceptionController) pieService.getBean(PieceptionController.class);
-		pieService.shutdown();
-		//TestConnection k = new TestConnection();
-		//k.getCon();
+		if(this.restartAsServer())
+		{
+			return;
+		}
 
-		//TestDao testDao = (TestDao)context.getBean("testDao"); //pieService is context aware!!! see pieService
-
-		/*if(pieService.isPieShareRunning())
-		 {
-		 //start client command mode do command and exit
-		 System.exit(0);
-		 }*/
-
-		//ToDoSv: check DB for PID and start Client or Server mode
-		//ToDoSv: write PID to DB
-		//IMPORTANT: allow startup of other then the PieceptionController only if PieceptionController gives the okay!!!
-
-		//FileWatcher watcher = new FileWatcher();
-
-		//executorService.execute(watcher);
+		//send command via pieception and exit
+		this.parseArgs(args);
 	}
 
 	public void startServer(String[] args)
 	{
+		//startup server
+		this.parseArgs(args);
 	}
 
 	public void setApplicationContext(ApplicationContext context)
@@ -59,22 +62,20 @@ public class PieShareController
 		this.pieService.setApplicationContext(context);
 	}
 
-	private static void restart(String[] args)
-	{
-		ApplicationContext context = new ClassPathXmlApplicationContext("application-context-server.xml");
-		PieShareController controller = (PieShareController) context.getBean("pieShareController");
-		controller.setApplicationContext(context);
-		controller.startServer(args);
-	}
-
 	public static void main(String[] args)
 	{
-		//todo checkout Argparse4j
 		//todo checkout apache shiro
-
 		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 		PieShareController controller = (PieShareController) context.getBean("pieShareController");
 		controller.setApplicationContext(context);
 		controller.start(args);
+		
+		if(controller.restartAsServer())
+		{
+			context = new ClassPathXmlApplicationContext("application-context-server.xml");
+			controller = (PieShareController) context.getBean("pieShareController");
+			controller.setApplicationContext(context);
+			controller.startServer(args);
+		}
 	}
 }
