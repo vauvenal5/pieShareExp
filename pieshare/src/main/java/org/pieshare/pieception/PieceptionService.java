@@ -11,7 +11,7 @@ import org.pieshare.pieshare.IPieService;
  *
  * @author vauve_000
  */
-public class PieceptionController
+public class PieceptionService implements IPieceptionService
 {
 
 	private ICommandService serverService;
@@ -19,7 +19,7 @@ public class PieceptionController
 	private IPieService pieService;
 	private boolean startupAllowed;
 
-	public PieceptionController()
+	public PieceptionService()
 	{
 	}
 
@@ -27,11 +27,6 @@ public class PieceptionController
 	public void postPieceptionController()
 	{
 		this.pieService.executeService(this.getCommandService());
-	}
-
-	public boolean isStartupAllowed()
-	{
-		return this.startupAllowed;
 	}
 
 	public ICommandService getCommandService()
