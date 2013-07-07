@@ -33,7 +33,18 @@ public class CmdClientService implements ICommandService
 	@EventCallback(eventClass = ShutdownEvent.class)
 	public void shutdown()
 	{
-		//TODO: shutdown Runnable
+		try
+		{
+			this.registry.unbind(this.pieService.getPieceptionBindingName());
+		}
+		catch (RemoteException ex)
+		{
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
+		}
+		catch (NotBoundException ex)
+		{
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
+		}
 	}
 
 	@Override

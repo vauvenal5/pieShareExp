@@ -4,6 +4,8 @@
  */
 package org.pieshare.pieception;
 
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -28,6 +30,19 @@ public class CmdServerService implements ICommandService
 	@EventCallback(eventClass = ShutdownEvent.class)
 	public void exit()
 	{
+		try
+		{
+			this.registry.unbind(this.pieService.getPieceptionBindingName());
+		}
+		catch (RemoteException ex)
+		{
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
+		}
+		catch (NotBoundException ex)
+		{
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
+		}
+
 		//todo sv: implementen shutdown event chain like in dslab
 		throw new UnsupportedOperationException("SVETI IS GREAT!"); //To change body of generated methods, choose Tools | Templates.
 	}

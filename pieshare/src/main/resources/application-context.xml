@@ -52,7 +52,7 @@
 		<property name="eventBaseService" ref="eventBaseService"/>
 	</bean>
 
-	<bean id="argparse4jService" class="org.pieshare.commandParser.argparse4j.Argparse4jService" lazy-init="true">
+	<bean id="argparse4jService" class="org.pieshare.commandParser.Argparse4jService" lazy-init="true">
 		<property name="actionExit" ref="actionExit"/>
 		<property name="actionLogin" ref="actionLogin"/>
 	</bean>

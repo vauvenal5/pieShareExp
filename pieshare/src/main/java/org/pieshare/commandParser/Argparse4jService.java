@@ -38,6 +38,7 @@ public class Argparse4jService implements ICommandParserService
 	@PostConstruct
 	public void postArgparse4jService()
 	{	
+		//TODO: change fixed names like "username" and "exit" to be looked up in the database!
 		Subparsers parsers = this.parser.addSubparsers();
 		
 		Subparser parser = parsers.addParser("exit").setDefault("func", this.actionExit);
