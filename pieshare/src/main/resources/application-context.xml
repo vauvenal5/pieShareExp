@@ -14,15 +14,19 @@
 	<!-- Controllers -->
 	<bean id="pieShareController" class="org.pieshare.pieshare.PieShareController" lazy-init="true">
 		<property name="pieService" ref="pieService"/>
+		<property name="commandParserService" ref="argparse4jService"/>
 	</bean>
 	
-	<bean id="pieceptionController" class="org.pieshare.pieception.PieceptionController" lazy-init="true">
+	
+
+	<!-- Services -->
+
+	<bean id="pieceptionService" class="org.pieshare.pieception.PieceptionService" lazy-init="true">
 		<property name="cmdServerService" ref="cmdServerService"/>
 		<property name="cmdClientService" ref="cmdClientService"/>
 		<property name="pieService" ref="pieService"/>
 	</bean>
 
-	<!-- Services -->
 	<bean id="cmdServerService" class="org.pieshare.pieception.CmdServerService" lazy-init="true">
 		<property name="pieService" ref="pieService"/>
 	</bean>
@@ -48,12 +52,26 @@
 		<property name="eventBaseService" ref="eventBaseService"/>
 	</bean>
 
+	<bean id="argparse4jService" class="org.pieshare.commandParser.argparse4j.Argparse4jService" lazy-init="true">
+		<property name="actionExit" ref="actionExit"/>
+		<property name="actionLogin" ref="actionLogin"/>
+	</bean>
+
 	<bean id="eventBaseService" class="org.pieshare.event.eventBase.EventBaseService" scope="prototype" lazy-init="true">
 	</bean>
 
 	<!-- DAO's -->
 	<bean id="testDao" class="org.pieshare.dao.TestDao" lazy-init="true">
 		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<!-- Actions -->
+	<bean id="actionExit" class="org.pieshare.commandParser.ActionExit" lazy-init="true">
+		<property name="pieceptionService" ref="pieceptionService"/>
+	</bean>
+
+	<bean id="actionLogin" class="org.pieshare.commandParser.ActionLogin" lazy-init="true">
+		<property name="pieceptionService" ref="pieceptionService"/>
 	</bean>
 
 	<!-- Views -->

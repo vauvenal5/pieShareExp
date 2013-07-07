@@ -4,11 +4,14 @@
  */
 package org.pieshare.commandParser;
 
+import java.util.Map;
+
 /**
  *
  * @author vauvenal5
  */
-public interface IArgumentAction
+public interface IAction
 {
-	public void doAction();
+
+	public void doAction(Map<String, Object> args);
 }

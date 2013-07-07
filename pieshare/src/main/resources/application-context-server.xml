@@ -10,5 +10,5 @@
        http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd" xmlns:aop="http://www.springframework.org/schema/aop">
 	   
-	<import resource="classpath:/src/main/resources/application-context.xml"/>
+	<import resource="classpath:/application-context.xml"/>
 </beans>

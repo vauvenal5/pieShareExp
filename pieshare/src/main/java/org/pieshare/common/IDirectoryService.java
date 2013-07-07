@@ -12,6 +12,8 @@ import java.io.File;
  */
 public interface IDirectoryService
 {
+
 	File getUserDirectory();
+
 	File getUserPieShareDirectory();
 }

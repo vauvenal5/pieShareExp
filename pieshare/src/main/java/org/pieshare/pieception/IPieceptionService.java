@@ -10,5 +10,6 @@ package org.pieshare.pieception;
  */
 public interface IPieceptionService
 {
+
 	public ICommandService getCommandService();
 }

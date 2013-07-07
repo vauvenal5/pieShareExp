@@ -4,20 +4,18 @@
  */
 package org.pieshare.commandParser;
 
+import java.util.Map;
 import org.pieshare.pieception.IPieceptionService;
 
 /**
  *
  * @author vauvenal5
  */
-public class ArgumentActionExit implements IArgumentAction
+public class ActionExit extends ActionBase
 {
-	private IPieceptionService pieceptionService;
-	
 	@Override
-	public void doAction()
+	public void doAction(Map<String, Object> args)
 	{
 		this.pieceptionService.getCommandService().exit();
 	}
-	
 }

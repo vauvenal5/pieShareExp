@@ -13,8 +13,9 @@ import org.pieshare.user.User;
  */
 public interface IPieUserDatabaseManagerService
 {
+
 	BasicDataSource getDataSource(User user);
-	
+
 	/*
 	 * Not used yet, use then if necessary
 	 */

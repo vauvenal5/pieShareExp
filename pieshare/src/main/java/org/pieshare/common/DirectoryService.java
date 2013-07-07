@@ -12,22 +12,22 @@ import java.io.File;
  */
 public class DirectoryService implements IDirectoryService
 {
+
 	public File getUserDirectory()
 	{
 		return new File(System.getProperty("user.home"));
 	}
-	
+
 	public File getUserPieShareDirectory()
 	{
 		File userPieShare = new File(getUserDirectory(), ".pieshare");
-		
-		if(!userPieShare.exists() || !userPieShare.isDirectory())
+
+		if (!userPieShare.exists() || !userPieShare.isDirectory())
 		{
 			userPieShare.mkdirs();
 		}
-		
+
 		return userPieShare;
-		
+
 	}
-	
 }

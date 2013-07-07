@@ -13,6 +13,8 @@ import java.util.Properties;
  */
 public interface IAppDataPropertiesReader
 {
+
 	String getPassword();
+
 	String getUsername();
 }

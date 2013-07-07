@@ -20,15 +20,14 @@ public class PieAppDB extends org.apache.commons.dbcp.BasicDataSource
 {
 
 	private final static Logger logger = Logger.getLogger(PieAppDB.class);
-	private User appUser;	
+	private User appUser;
 	private IAppDataPropertiesReader appDataPropertiesReader;
-	
-	
+
 	public void setAppDataPropertiesReader(IAppDataPropertiesReader appDataPropertiesReader)
 	{
 		this.appDataPropertiesReader = appDataPropertiesReader;
 	}
-	
+
 	@Override
 	public synchronized void setDriverClassName(String driverClassName)
 	{
@@ -45,7 +44,7 @@ public class PieAppDB extends org.apache.commons.dbcp.BasicDataSource
 	public void setupDB()
 	{
 		appUser = createAppUser();
-		
+
 		if (appUser != null)
 		{
 			super.setPassword(appUser.getPasswort());
@@ -56,9 +55,9 @@ public class PieAppDB extends org.apache.commons.dbcp.BasicDataSource
 			logger.error("No user is logged in, how could this happen that we ended up here?");
 		}
 	}
-	
+
 	private User createAppUser()
-	{	
+	{
 		return new User(appDataPropertiesReader.getUsername(), appDataPropertiesReader.getPassword());
 	}
 }

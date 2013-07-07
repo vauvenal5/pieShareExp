@@ -22,12 +22,17 @@ public class PieShareController
 	{
 		this.pieService = service;
 	}
-	
+
+	public void setCommandParserService(ICommandParserService service)
+	{
+		this.parserService = service;
+	}
+
 	public boolean restartAsServer()
 	{
 		return !this.pieService.isPieShareRunning();
 	}
-	
+
 	private void parseArgs(String[] args)
 	{
 		try
@@ -42,7 +47,7 @@ public class PieShareController
 
 	public void start(String[] args)
 	{
-		if(this.restartAsServer())
+		if (this.restartAsServer())
 		{
 			return;
 		}
@@ -69,8 +74,8 @@ public class PieShareController
 		PieShareController controller = (PieShareController) context.getBean("pieShareController");
 		controller.setApplicationContext(context);
 		controller.start(args);
-		
-		if(controller.restartAsServer())
+
+		if (controller.restartAsServer())
 		{
 			context = new ClassPathXmlApplicationContext("application-context-server.xml");
 			controller = (PieShareController) context.getBean("pieShareController");

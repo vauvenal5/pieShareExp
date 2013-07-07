@@ -59,4 +59,10 @@ public class CmdClientService implements ICommandService
 		}
 
 	}
+
+	@Override
+	public void login(String username, String password)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 }

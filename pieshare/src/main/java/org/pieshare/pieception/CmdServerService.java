@@ -55,4 +55,10 @@ public class CmdServerService implements ICommandService
 	{
 		this.pieService = service;
 	}
+
+	@Override
+	public void login(String username, String password)
+	{
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 }

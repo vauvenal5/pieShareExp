@@ -10,7 +10,10 @@ package org.pieshare.commandParser;
  */
 public interface ICommandParserService
 {
+
 	public void parseArgs(String[] args) throws Exception;
+
+	public void setActionExit(IAction action);
 	
-	public void setArgumentActionExit(ArgumentActionExit action);
+	public void setActionLogin(IAction action);
 }
