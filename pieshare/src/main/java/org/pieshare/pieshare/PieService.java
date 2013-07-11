@@ -30,7 +30,7 @@ public class PieService implements IPieService
 
 	public PieService()
 	{
-		this.pieShareRunning = true;
+		this.pieShareRunning = false;
 		this.executorService = Executors.newCachedThreadPool();
 	}
 
@@ -104,9 +104,8 @@ public class PieService implements IPieService
 	}
 
 	@Override
-	public void restart()
+	public void setPieShareIsRunning()
 	{
-		this.pieShareRunning = false;
-		shutdown();
+		this.pieShareRunning = true;
 	}
 }

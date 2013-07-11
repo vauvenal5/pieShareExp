@@ -20,7 +20,7 @@ import org.pieshare.pieshare.IPieService;
  *
  * @author vauvenal5
  */
-public class CmdServerService implements ICommandService, Runnable, Remote
+public class CmdServerService implements ICommandService, ICmdServerService
 {
 
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CmdServerService.class);

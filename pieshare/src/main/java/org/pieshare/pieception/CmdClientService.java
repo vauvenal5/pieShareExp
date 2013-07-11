@@ -18,7 +18,7 @@ import org.pieshare.pieshare.IPieService;
  *
  * @author vauvenal5
  */
-public class CmdClientService implements ICommandService
+public class CmdClientService implements ICmdClientService
 {
 
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CmdClientService.class);
@@ -71,16 +71,16 @@ public class CmdClientService implements ICommandService
 		try
 		{
 			this.serverService = (ICommandService) this.registry.lookup(this.pieService.getPieceptionBindingName());
-		}
+                        //if server service can be retrieved we will stay in command client mode
+                        this.pieService.setPieShareIsRunning();
+                }
 		catch (RemoteException ex)
 		{
 			ex.printStackTrace();
 		}
 		catch (NotBoundException ex)
 		{
-			//if there is nobody to listen to commands this means that pieShare is not running and needs to be started in server mode
-			this.pieService.restart();
-			return;
+			ex.printStackTrace();
 		}
 	}
 

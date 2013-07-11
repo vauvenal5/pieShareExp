@@ -14,8 +14,8 @@ import org.pieshare.pieshare.IPieService;
 public class PieceptionService implements IPieceptionService
 {
 
-	private ICommandService serverService;
-	private ICommandService clientService;
+	private ICmdServerService serverService;
+	private ICmdClientService clientService;
 	private IPieService pieService;
 	private boolean startupAllowed;
 
@@ -26,8 +26,16 @@ public class PieceptionService implements IPieceptionService
 	@PostConstruct
 	public void postPieceptionController()
 	{
-		//start only serverService and only when pieShare is restarting 
-		this.pieService.executeService(this.getCommandService());
+            //if there is an running pieShare instance don't start a new one!
+            if(this.pieService.isPieShareRunning())
+            {
+                this.serverService = null;
+                return;
+            }
+            
+            //else start instance as server
+            this.clientService = null;
+            this.pieService.executeService(this.serverService);
 	}
 
 	@Override
@@ -46,15 +54,13 @@ public class PieceptionService implements IPieceptionService
 		this.pieService = service;
 	}
 
-	public void setCmdServerService(ICommandService service)
+	public void setCmdServerService(ICmdServerService service)
 	{
 		this.serverService = service;
 	}
 
-	public void setCmdClientService(ICommandService service)
+	public void setCmdClientService(ICmdClientService service)
 	{
 		this.clientService = service;
-		
-		if()
 	}
 }
