@@ -26,9 +26,11 @@ public class PieceptionService implements IPieceptionService
 	@PostConstruct
 	public void postPieceptionController()
 	{
+		//start only serverService and only when pieShare is restarting 
 		this.pieService.executeService(this.getCommandService());
 	}
 
+	@Override
 	public ICommandService getCommandService()
 	{
 		if (this.pieService.isPieShareRunning())
@@ -52,5 +54,7 @@ public class PieceptionService implements IPieceptionService
 	public void setCmdClientService(ICommandService service)
 	{
 		this.clientService = service;
+		
+		if()
 	}
 }

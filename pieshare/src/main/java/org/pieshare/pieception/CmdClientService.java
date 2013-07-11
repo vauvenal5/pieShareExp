@@ -4,10 +4,12 @@
  */
 package org.pieshare.pieception;
 
+import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import javax.annotation.PostConstruct;
 import org.pieshare.event.eventBase.EventCallback;
 import org.pieshare.event.events.ShutdownEvent;
 import org.pieshare.pieshare.IPieService;
@@ -23,14 +25,15 @@ public class CmdClientService implements ICommandService
 	private Registry registry;
 	private ICommandService serverService;
 	private IPieService pieService;
-
-	@Override
-	public void run()
+	
+	@PostConstruct
+	public void postCmdClientService()
 	{
 		getService();
 	}
 
-	@EventCallback(eventClass = ShutdownEvent.class)
+	/*I beliebe this is not needed because it is enough if when the server unbinds the registry.
+	 * @EventCallback(eventClass = ShutdownEvent.class)
 	public void shutdown()
 	{
 		try
@@ -45,7 +48,7 @@ public class CmdClientService implements ICommandService
 		{
 			logger.debug("Pieception failed! Err: " + ex.getMessage());
 		}
-	}
+	}*/
 
 	@Override
 	public void exit()
@@ -58,22 +61,37 @@ public class CmdClientService implements ICommandService
 		try
 		{
 			this.registry = LocateRegistry.getRegistry(this.pieService.getPieceptionRegistryHost(), this.pieService.getPieceptionRegistryPort());
-			this.serverService = (ICommandService) this.registry.lookup(this.pieService.getPieceptionBindingName());
-		}
-		catch (NotBoundException ex)
-		{
-			logger.debug("Pieception failed! Err: " + ex.getMessage());
+			
 		}
 		catch (RemoteException ex)
 		{
 			logger.debug("Pieception failed! Err: " + ex.getMessage());
 		}
-
+		
+		try
+		{
+			this.serverService = (ICommandService) this.registry.lookup(this.pieService.getPieceptionBindingName());
+		}
+		catch (RemoteException ex)
+		{
+			ex.printStackTrace();
+		}
+		catch (NotBoundException ex)
+		{
+			//if there is nobody to listen to commands this means that pieShare is not running and needs to be started in server mode
+			this.pieService.restart();
+			return;
+		}
 	}
 
 	@Override
 	public void login(String username, String password)
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
+	}
+	
+	public void setPieService(IPieService service)
+	{
+		this.pieService = service;
 	}
 }

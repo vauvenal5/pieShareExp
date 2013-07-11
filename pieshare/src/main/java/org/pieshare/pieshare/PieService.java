@@ -25,16 +25,19 @@ public class PieService implements IPieService
 	private IPieDao pieDao;
 	private ApplicationContext context;
 	private IEventBaseService eventBaseService;
+	
+	private boolean pieShareRunning;
 
 	public PieService()
 	{
+		this.pieShareRunning = true;
 		this.executorService = Executors.newCachedThreadPool();
 	}
 
 	@Override
 	public boolean isPieShareRunning()
 	{
-		return false;
+		return this.pieShareRunning;
 	}
 
 	@Override
@@ -47,7 +50,8 @@ public class PieService implements IPieService
 	@Override
 	public String getPieceptionBindingName()
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		//TODO: change this
+		return "pieception";
 	}
 
 	@Override
@@ -65,13 +69,15 @@ public class PieService implements IPieService
 	@Override
 	public String getPieceptionRegistryHost()
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		//TODO: change this
+		return "pieHost";
 	}
 
 	@Override
 	public int getPieceptionRegistryPort()
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		//TODO: change this
+		return 5001;
 	}
 
 	@Override
@@ -95,5 +101,12 @@ public class PieService implements IPieService
 	public void removeShutdownEventListener(Object listener)
 	{
 		this.eventBaseService.removeShutdownEventListener(ShutdownEvent.class, listener);
+	}
+
+	@Override
+	public void restart()
+	{
+		this.pieShareRunning = false;
+		shutdown();
 	}
 }

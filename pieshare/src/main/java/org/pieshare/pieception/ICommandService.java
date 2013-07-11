@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
  *
  * @author vauvenal5
  */
-public interface ICommandService extends Remote, Runnable
+public interface ICommandService
 {
 
 	void login(String username, String password);

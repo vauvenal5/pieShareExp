@@ -6,6 +6,7 @@ package org.pieshare.pieception;
 
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -19,7 +20,7 @@ import org.pieshare.pieshare.IPieService;
  *
  * @author vauvenal5
  */
-public class CmdServerService implements ICommandService
+public class CmdServerService implements ICommandService, Runnable, Remote
 {
 
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CmdServerService.class);

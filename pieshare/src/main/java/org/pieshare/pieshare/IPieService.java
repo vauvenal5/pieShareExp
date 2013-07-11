@@ -28,4 +28,6 @@ public interface IPieService extends ApplicationContextAware, ISupportShutdownEv
 	<T> T getBean(Class<T> type);
 
 	void shutdown();
+	
+	void restart();
 }

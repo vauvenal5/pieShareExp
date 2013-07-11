@@ -5,6 +5,7 @@
 package org.pieshare.pieshare;
 
 import org.pieshare.commandParser.ICommandParserService;
+import org.pieshare.common.PieObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,9 +13,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author richy
  */
-public class PieShareController
+public class PieShareController extends PieObject
 {
-
 	private IPieService pieService;
 	private ICommandParserService parserService;
 
@@ -47,17 +47,20 @@ public class PieShareController
 
 	public void start(String[] args)
 	{
-		if (this.restartAsServer())
-		{
-			return;
-		}
-
+		this.logger.info("Starting application as command client!");
 		//send command via pieception and exit
 		this.parseArgs(args);
+		
+		if (this.restartAsServer())
+		{
+			this.logger.info("No running instance detected! Restarting as server!");
+			return;
+		}
 	}
 
 	public void startServer(String[] args)
 	{
+		this.logger.info("Starting application as command server!");
 		//startup server
 		this.parseArgs(args);
 	}
