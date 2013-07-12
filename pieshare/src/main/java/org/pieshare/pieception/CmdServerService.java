@@ -51,7 +51,7 @@ public class CmdServerService implements ICommandService, ICmdServerService
 	@Override
 	public void run()
 	{
-		//registerService();;
+		registerService();;
 	}
 
 	private void registerService()

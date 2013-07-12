@@ -60,8 +60,7 @@ public class CmdClientService implements ICmdClientService
 	{
 		try
 		{
-			this.registry = LocateRegistry.getRegistry(this.pieService.getPieceptionRegistryHost(), this.pieService.getPieceptionRegistryPort());
-			
+			this.registry = LocateRegistry.getRegistry(this.pieService.getPieceptionRegistryHost(), this.pieService.getPieceptionRegistryPort());		
 		}
 		catch (RemoteException ex)
 		{
@@ -76,11 +75,11 @@ public class CmdClientService implements ICmdClientService
                 }
 		catch (RemoteException ex)
 		{
-			ex.printStackTrace();
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
 		}
 		catch (NotBoundException ex)
 		{
-			ex.printStackTrace();
+			logger.debug("Pieception failed! Err: " + ex.getMessage());
 		}
 	}
 
