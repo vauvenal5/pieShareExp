@@ -13,7 +13,7 @@ At this time pieShare is running as a bachalor project at the Technical Univeris
 Project Management Cycle
 ------------------------
 
-The complete project management is realised over github. Our development cycles are represented through Milstones which contain the task which will be finished and bugs which will be fixed. Further Huboard is used for a simplier overview of the pending tasks.
+The complete project management is realised over github. Our development cycles are represented through Milstones which contain the task which will be finished and bugs which will be fixed. Further [Huboard](http://huboard.com/vauvenal5/pieShare/board) is used for a simplier overview of the pending tasks.
 
 Every task or bug issue runs through the following development steps:
 * Ready - Task has been defined and is ready for development. / Bug entry has been accepted as bug and will be fixed.
