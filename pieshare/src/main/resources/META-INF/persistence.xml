@@ -1,4 +1,9 @@
-<persistence>
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+        xmlns="http://java.sun.com/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
 	<persistence-unit name="pieSharePersistenceUnit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
         
@@ -6,18 +11,28 @@
         <class>org.pieshare.database.TestUserEntity</class>
 		
 		<properties>
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.format_sql" value="false" />
- 
+			
 			<property name="hibernate.connection.driver_class" 
 					  value="org.hsqldb.jdbcDriver" />
 			<property name="hibernate.connection.url" 
 					  value="jdbc:hsqldb:mem:mem:aname" />
 			<property name="hibernate.connection.username" value="sa" />
+			<!--<property name="hibernate.connection.password" value=""/>-->
+			
+			 <!-- Echo SQL statements -->
+			<property name="hibernate.show_sql" value="true" />
+			
+			<!-- Format the generated SQL statement to make it more readable, but takes up more screen space. :) -->
+			<property name="hibernate.format_sql" value="true" />
  
+			<!-- SQL dialect -->
 			<property name="hibernate.dialect" 
 					  value="org.hibernate.dialect.HSQLDialect" />
+			
+			<!-- Drop and recreate on startup -->
 			<property name="hibernate.hbm2ddl.auto" value="create" />
+			
+			
 		</properties>
 	</persistence-unit>
 </persistence>
