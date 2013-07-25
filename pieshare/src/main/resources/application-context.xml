@@ -31,17 +31,14 @@
 		<property name="pieService" ref="pieService"/>
 	</bean>
 	
-	<bean id="appDataPropertiesReader" class="org.pieshare.propertiesreader.AppDataPropertiesReader" lazy-init="true">
+	<bean id="appDataPropertiesReader" class="org.pieshare.service.propertiesreader.AppDataPropertiesReader" lazy-init="true">
 		<property name="directoryService" ref="directoryService"/>
 	</bean>
 	
-	<bean id="pieUserDatabaseManagementServie" class="org.pieshare.database.PieUserDatabaseManagementService" lazy-init="true">
+	<bean id="directoryService" class="org.pieshare.service.core.DirectoryService" lazy-init="true">
 	</bean>
 	
-	<bean id="directoryService" class="org.pieshare.common.DirectoryService" lazy-init="true">
-	</bean>
-	
-	<bean id="fileWatcherService" class="org.pieshare.filewatcher.FileWatcherService" lazy-init="true">
+	<bean id="fileWatcherService" class="org.pieshare.service.filewatcher.FileWatcherService" lazy-init="true">
 		<property name="eventBaseService" ref="eventBaseService"/>
 	</bean>
 
@@ -58,13 +55,10 @@
 		<property name="actionLogin" ref="actionLogin"/>
 	</bean>
 
-	<bean id="eventBaseService" class="org.pieshare.event.eventBase.EventBaseService" scope="prototype" lazy-init="true">
+	<bean id="eventBaseService" class="org.pieshare.service.event.EventBaseService" scope="prototype" lazy-init="true">
 	</bean>
 
 	<!-- DAO's -->
-	<bean id="testDao" class="org.pieshare.dao.TestDao" lazy-init="true">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
 
 	<!-- Actions -->
 	<bean id="actionExit" class="org.pieshare.commandParser.ActionExit" lazy-init="true">

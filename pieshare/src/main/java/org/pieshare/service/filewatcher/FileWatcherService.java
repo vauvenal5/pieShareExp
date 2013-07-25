@@ -30,6 +30,7 @@ public class FileWatcherService implements IFileWatcherService
 	private static final Logger logger = Logger.getLogger(FileWatcherService.class);
 	private IEventBaseService eventBaseService;
 	private String path = "../";
+	private boolean doRun = true;
 
 	@Override
 	public void setEventBaseService(IEventBaseService eventBaseService)
@@ -69,7 +70,7 @@ public class FileWatcherService implements IFileWatcherService
 			return;
 		}
 
-		for (;;)
+		while(doRun)
 		{
 			// wait for key to be signaled
 			try
@@ -113,6 +114,11 @@ public class FileWatcherService implements IFileWatcherService
 				break;
 			}
 		}
+	}
+	
+	public void stopRunning()
+	{
+		doRun = false;
 	}
 	
 	public void setDirectory(String path)
