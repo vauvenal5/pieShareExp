@@ -7,6 +7,8 @@ package org.pieshare.filewatcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.pieshare.event.eventBase.EventCallback;
+import org.pieshare.event.events.FileWatcherEvent;
 
 /**
  *
@@ -14,6 +16,8 @@ import org.junit.Test;
  */
 public class TestFileWatcher
 {
+	private int eventCount = 0;
+	
 	@Before
 	public void startUp()
 	{
@@ -31,5 +35,18 @@ public class TestFileWatcher
 	public void testFileWatcher()
 	{
 		FileWatcherService fileWatcher = new FileWatcherService();
+		fileWatcher.setDirectory("../");
+		fileWatcher.addFileChangeEventListener(this);
+		
+		fileWatcher.run();
+		
+		
+		
+	}
+	
+	@EventCallback(eventClass = FileWatcherEvent.class)
+	public void fileWatcherListener()
+	{
+	
 	}
 }
