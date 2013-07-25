@@ -39,13 +39,13 @@ public class EventBaseService implements IEventBaseService
 
 		return false;
 	}
-
+	
 	@Override
-	public void addEventListener(Class eventClass, Object listener)
+	public void addEventListener(Class eventClass, Object listener) throws NoCallbackPointException
 	{
 		if (!checkForAnnotation(eventClass, listener.getClass()))
 		{
-			//TODO: throw Exception
+			throw new NoCallbackPointException("No callback point for event!");
 		}
 
 		if (this.listenerList.containsKey(eventClass))

@@ -10,9 +10,9 @@ import java.util.EventObject;
  *
  * @author vauve_000
  */ 
-public class TestRemoveEventListenerEvent extends EventObject
+public class TestEvent extends EventObject
 {
-	public TestRemoveEventListenerEvent(String msg)
+	public TestEvent(String msg)
 	{
 		super(msg);
 	}

@@ -13,7 +13,7 @@ import java.util.EventListener;
 public interface IEventBaseService
 {
 
-	public void addEventListener(Class eventClass, Object listener);
+	public void addEventListener(Class eventClass, Object listener) throws NoCallbackPointException;
 
 	public void removeEventListener(Class eventClass, Object listener);
 

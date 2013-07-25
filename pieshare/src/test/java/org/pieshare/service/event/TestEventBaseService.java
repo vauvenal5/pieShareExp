@@ -35,11 +35,6 @@ public class TestEventBaseService
 	public void tearDown()
 	{
 	}
-	// TODO add test methods here.
-	// The methods must be annotated with annotation @Test. For example:
-	//
-	// @Test
-	// public void hello() {}
 	
 	@Test
 	public void TestRemoveEventListener() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException
@@ -48,15 +43,41 @@ public class TestEventBaseService
 		
 		Field privateField = EventBaseService.class.getDeclaredField("listenerList");
 		privateField.setAccessible(true);
-		privateField.get(ebs);
 		
 		HashMap<Class, List<Object>> map = (HashMap<Class, List<Object>>)privateField.get(ebs);
 		List<Object> eventList = new ArrayList<Object>();
 		eventList.add(this);
-		map.put(TestRemoveEventListenerEvent.class, eventList);
+		map.put(TestEvent.class, eventList);
 			
-		ebs.removeEventListener(TestRemoveEventListenerEvent.class, this);
+		ebs.removeEventListener(TestEvent.class, this);
 		
-		Assert.assertEquals(0, map.get(TestRemoveEventListenerEvent.class).size());
+		Assert.assertEquals(0, map.get(TestEvent.class).size());
+	}
+	
+	@Test
+	@EventCallback(eventClass=TestEvent.class)
+	public void TestAddEventListener() throws NoCallbackPointException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException
+	{
+		EventBaseService ebs = new EventBaseService();
+		
+		ebs.addEventListener(TestEvent.class, this);
+		ebs.addEventListener(TestEvent.class, this);
+		
+		Field privateField = EventBaseService.class.getDeclaredField("listenerList");
+		privateField.setAccessible(true);
+		
+		HashMap<Class, List<Object>> map = (HashMap<Class, List<Object>>)privateField.get(ebs);
+		
+		Assert.assertEquals(2, map.get(TestEvent.class).size());
+	}
+	
+	@Test(expected = NoCallbackPointException.class)
+	public void TestAddEventListenerWithoutAnnotation() throws NoCallbackPointException
+	{
+		EventBaseService ebs = new EventBaseService();
+		
+		ebs.addEventListener(TestNotAnnotatedEvent.class, this);
+		
+		Assert.fail();
 	}
 }
