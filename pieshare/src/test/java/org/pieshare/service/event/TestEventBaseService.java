@@ -4,42 +4,31 @@
  */
 package org.pieshare.service.event;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.mockito.Mockito;
 
 /**
  *
  * @author vauve_000
  */
 public class TestEventBaseService
-{
-	private boolean testing;
-	private boolean fail;
-	
+{	
 	public TestEventBaseService()
-	{
-	}
-	
-	@BeforeClass
-	public static void setUpClass()
-	{
-	}
-	
-	@AfterClass
-	public static void tearDownClass()
 	{
 	}
 	
 	@Before
 	public void setUp()
 	{
-		this.testing = false;
-		this.fail = false;
 	}
 	
 	@After
@@ -53,20 +42,21 @@ public class TestEventBaseService
 	// public void hello() {}
 	
 	@Test
-	@EventCallback(eventClass = TestRemoveEventListenerEvent.class)
-	public void TestRemoveEventListener()
+	public void TestRemoveEventListener() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException
 	{
-		if(this.testing)
-		{
-			this.fail = true;
-			return;
-		}
-		
 		EventBaseService ebs = new EventBaseService();
-		ebs.addEventListener(TestRemoveEventListenerEvent.class, this);
-		ebs.removeShutdownEventListener(TestRemoveEventListenerEvent.class, this);
-		ebs.fireEvent(TestRemoveEventListenerEvent.class, this);
 		
-		Assert.assertFalse(this.fail);
+		Field privateField = EventBaseService.class.getDeclaredField("listenerList");
+		privateField.setAccessible(true);
+		privateField.get(ebs);
+		
+		HashMap<Class, List<Object>> map = (HashMap<Class, List<Object>>)privateField.get(ebs);
+		List<Object> eventList = new ArrayList<Object>();
+		eventList.add(this);
+		map.put(TestRemoveEventListenerEvent.class, eventList);
+			
+		ebs.removeEventListener(TestRemoveEventListenerEvent.class, this);
+		
+		Assert.assertEquals(0, map.get(TestRemoveEventListenerEvent.class).size());
 	}
 }

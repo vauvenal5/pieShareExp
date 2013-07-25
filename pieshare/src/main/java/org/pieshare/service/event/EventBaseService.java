@@ -61,7 +61,7 @@ public class EventBaseService implements IEventBaseService
 	}
 
 	@Override
-	public void removeShutdownEventListener(Class eventClass, Object listener)
+	public void removeEventListener(Class eventClass, Object listener)
 	{
 		if (this.listenerList.containsKey(eventClass))
 		{
