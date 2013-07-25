@@ -13,6 +13,7 @@ import org.pieshare.service.core.PieLogger;
 import org.pieshare.service.event.EventCallback;
 import org.pieshare.service.filewatcher.FileWatcherEvent;
 import org.pieshare.service.filewatcher.FileWatcherService;
+import org.mockito.Mockito;
 
 /**
  *
@@ -37,7 +38,9 @@ public class TestFileWatcher
 	@Test
 	public void testFileWatcher()
 	{
+			
 		String testPath = "../";
+		
 		FileWatcherService fileWatcher = new FileWatcherService();
 		fileWatcher.setDirectory(testPath);
 		fileWatcher.addFileChangeEventListener(this);
