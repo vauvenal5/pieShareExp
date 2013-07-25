@@ -11,23 +11,18 @@
 
 	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
-	<!-- Controllers -->
-	<bean id="pieShareController" class="org.pieshare.pieshare.PieShareController" lazy-init="true">
-		<property name="pieService" ref="pieService"/>
-		<property name="commandParserService" ref="argparse4jService"/>
-	</bean>
-	
+	<!-- Controllers -->	
 	
 
 	<!-- Services -->
 
-	<bean id="pieceptionService" class="org.pieshare.pieception.PieceptionService" lazy-init="true">
+	<bean id="pieceptionService" class="org.pieshare.service.pieception.PieceptionService" lazy-init="true">
 		<property name="cmdServerService" ref="cmdServerService"/>
 		<property name="cmdClientService" ref="cmdClientService"/>
 		<property name="pieService" ref="pieService"/>
 	</bean>
 
-	<bean id="cmdServerService" class="org.pieshare.pieception.CmdServerService" lazy-init="true">
+	<bean id="cmdServerService" class="org.pieshare.service.pieception.CmdServerService" lazy-init="true">
 		<property name="pieService" ref="pieService"/>
 	</bean>
 	
@@ -42,15 +37,15 @@
 		<property name="eventBaseService" ref="eventBaseService"/>
 	</bean>
 
-	<bean id="cmdClientService" class="org.pieshare.pieception.CmdClientService" lazy-init="true">
+	<bean id="cmdClientService" class="org.pieshare.service.pieception.CmdClientService" lazy-init="true">
 		<property name="pieService" ref="pieService"/>
 	</bean>
 
-	<bean id="pieService" class="org.pieshare.pieshare.PieService" lazy-init="true">
+	<bean id="pieService" class="org.pieshare.service.core.PieService" lazy-init="true">
 		<property name="eventBaseService" ref="eventBaseService"/>
 	</bean>
 
-	<bean id="argparse4jService" class="org.pieshare.commandParser.Argparse4jService" lazy-init="true">
+	<bean id="argparse4jService" class="org.pieshare.service.commandParser.Argparse4jService" lazy-init="true">
 		<property name="actionExit" ref="actionExit"/>
 		<property name="actionLogin" ref="actionLogin"/>
 	</bean>
@@ -61,19 +56,16 @@
 	<!-- DAO's -->
 
 	<!-- Actions -->
-	<bean id="actionExit" class="org.pieshare.commandParser.ActionExit" lazy-init="true">
+	<bean id="actionExit" class="org.pieshare.service.commandParser.ActionExit" lazy-init="true">
 		<property name="pieceptionService" ref="pieceptionService"/>
 	</bean>
 
-	<bean id="actionLogin" class="org.pieshare.commandParser.ActionLogin" lazy-init="true">
+	<bean id="actionLogin" class="org.pieshare.service.commandParser.ActionLogin" lazy-init="true">
 		<property name="pieceptionService" ref="pieceptionService"/>
 	</bean>
 
 	<!-- Views -->
 
 	<!-- Other Beans -->	
-	<bean id="dataSource" destroy-method="close" class="org.pieshare.database.PieAppDB" lazy-init="true">
-		<property name="driverClassName" value="org.sqlite.JDBC"/>
-		<property name="url" value="jdbc:sqlite:test.db"/>
-	</bean>
+
 </beans>
