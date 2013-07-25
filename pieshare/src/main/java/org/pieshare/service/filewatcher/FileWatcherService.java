@@ -29,6 +29,8 @@ public class FileWatcherService implements IFileWatcherService
 
 	private static final Logger logger = Logger.getLogger(FileWatcherService.class);
 	private IEventBaseService eventBaseService;
+	private String path = "../";
+	private boolean doRun = true;
 
 	@Override
 	public void setEventBaseService(IEventBaseService eventBaseService)
@@ -53,7 +55,7 @@ public class FileWatcherService implements IFileWatcherService
 
 		//ToDo: Decide from where the Path is comming. 
 
-		File file = new File("../");
+		File file = new File(path);
 		Path dir = file.toPath();
 
 		WatchKey key = null;
@@ -68,7 +70,7 @@ public class FileWatcherService implements IFileWatcherService
 			return;
 		}
 
-		for (;;)
+		while(doRun)
 		{
 			// wait for key to be signaled
 			try
@@ -112,6 +114,16 @@ public class FileWatcherService implements IFileWatcherService
 				break;
 			}
 		}
+	}
+	
+	public void stopRunning()
+	{
+		doRun = false;
+	}
+	
+	public void setDirectory(String path)
+	{
+		this.path = path;
 	}
 
 	@Override
