@@ -24,7 +24,7 @@ import org.pieshare.service.event.IEventBaseService;
  *
  * @author Richard Leopold
  */
-public class FileWatcherService implements IFileWatcherService
+public class FileWatcherService implements IFileWatcherService, Runnable
 {
 
 	private static final Logger logger = Logger.getLogger(FileWatcherService.class);
