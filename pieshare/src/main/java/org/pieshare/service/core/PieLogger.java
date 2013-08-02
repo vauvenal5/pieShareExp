@@ -16,10 +16,6 @@ public class PieLogger
 
 	private static Logger mainLogger = LoggerFactory.getLogger(PieLogger.class);
 
-	public PieLogger()
-	{
-	}
-
 	public static void debug(Class clazz, String message)
 	{
 		if (mainLogger.isDebugEnabled())

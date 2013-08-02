@@ -4,69 +4,80 @@
  */
 package org.pieshare.service.event;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.mockito.Mockito;
 
 /**
  *
  * @author vauve_000
  */
 public class TestEventBaseService
-{
-	private boolean testing;
-	private boolean fail;
-	
+{	
 	public TestEventBaseService()
-	{
-	}
-	
-	@BeforeClass
-	public static void setUpClass()
-	{
-	}
-	
-	@AfterClass
-	public static void tearDownClass()
 	{
 	}
 	
 	@Before
 	public void setUp()
 	{
-		this.testing = false;
-		this.fail = false;
 	}
 	
 	@After
 	public void tearDown()
 	{
 	}
-	// TODO add test methods here.
-	// The methods must be annotated with annotation @Test. For example:
-	//
-	// @Test
-	// public void hello() {}
 	
 	@Test
-	@EventCallback(eventClass = TestRemoveEventListenerEvent.class)
-	public void TestRemoveEventListener()
+	public void TestRemoveEventListener() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException
 	{
-		if(this.testing)
-		{
-			this.fail = true;
-			return;
-		}
-		
 		EventBaseService ebs = new EventBaseService();
-		ebs.addEventListener(TestRemoveEventListenerEvent.class, this);
-		ebs.removeShutdownEventListener(TestRemoveEventListenerEvent.class, this);
-		ebs.fireEvent(TestRemoveEventListenerEvent.class, this);
 		
-		Assert.assertFalse(this.fail);
+		Field privateField = EventBaseService.class.getDeclaredField("listenerList");
+		privateField.setAccessible(true);
+		
+		HashMap<Class, List<Object>> map = (HashMap<Class, List<Object>>)privateField.get(ebs);
+		List<Object> eventList = new ArrayList<Object>();
+		eventList.add(this);
+		map.put(TestEvent.class, eventList);
+			
+		ebs.removeEventListener(TestEvent.class, this);
+		
+		Assert.assertEquals(0, map.get(TestEvent.class).size());
+	}
+	
+	@Test
+	@EventCallback(eventClass=TestEvent.class)
+	public void TestAddEventListener() throws NoCallbackPointException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException
+	{
+		EventBaseService ebs = new EventBaseService();
+		
+		ebs.addEventListener(TestEvent.class, this);
+		ebs.addEventListener(TestEvent.class, this);
+		
+		Field privateField = EventBaseService.class.getDeclaredField("listenerList");
+		privateField.setAccessible(true);
+		
+		HashMap<Class, List<Object>> map = (HashMap<Class, List<Object>>)privateField.get(ebs);
+		
+		Assert.assertEquals(2, map.get(TestEvent.class).size());
+	}
+	
+	@Test(expected = NoCallbackPointException.class)
+	public void TestAddEventListenerWithoutAnnotation() throws NoCallbackPointException
+	{
+		EventBaseService ebs = new EventBaseService();
+		
+		ebs.addEventListener(TestNotAnnotatedEvent.class, this);
+		
+		Assert.fail();
 	}
 }

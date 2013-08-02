@@ -99,7 +99,7 @@ public class PieService implements IPieService
 	@Override
 	public void removeShutdownEventListener(Object listener)
 	{
-		this.eventBaseService.removeShutdownEventListener(ShutdownEvent.class, listener);
+		this.eventBaseService.removeEventListener(ShutdownEvent.class, listener);
 	}
 
 	@Override

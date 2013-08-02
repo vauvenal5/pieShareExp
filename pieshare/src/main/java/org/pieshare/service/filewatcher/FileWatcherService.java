@@ -135,6 +135,6 @@ public class FileWatcherService implements IFileWatcherService, Runnable
 	@Override
 	public void removeFileChangeEventListener(Object listener)
 	{
-		eventBaseService.removeShutdownEventListener(FileWatcherEvent.class, listener);
+		eventBaseService.removeEventListener(FileWatcherEvent.class, listener);
 	}
 }

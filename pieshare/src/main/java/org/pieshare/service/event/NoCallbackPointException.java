@@ -10,15 +10,6 @@ package org.pieshare.service.event;
  */
 public class NoCallbackPointException extends Exception
 {
-
-	/**
-	 * Creates a new instance of
-	 * <code>NoCallbackPointException</code> without detail message.
-	 */
-	public NoCallbackPointException()
-	{
-	}
-
 	/**
 	 * Constructs an instance of
 	 * <code>NoCallbackPointException</code> with the specified detail message.
