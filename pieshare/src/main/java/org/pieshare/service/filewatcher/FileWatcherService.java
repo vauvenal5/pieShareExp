@@ -12,13 +12,11 @@ import static java.nio.file.StandardWatchEventKinds.*;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.util.List;
-
-
-import javax.swing.event.EventListenerList;
 import org.apache.log4j.Logger;
 import org.pieshare.domain.PieceOfPie;
+import org.pieshare.service.core.IDirectoryService;
 import org.pieshare.service.event.IEventBaseService;
+import org.pieshare.service.event.NoCallbackPointException;
 
 /**
  *
@@ -26,16 +24,22 @@ import org.pieshare.service.event.IEventBaseService;
  */
 public class FileWatcherService implements IFileWatcherService, Runnable
 {
-
 	private static final Logger logger = Logger.getLogger(FileWatcherService.class);
 	private IEventBaseService eventBaseService;
 	private String path = "../";
 	private boolean doRun = true;
-
+	private IDirectoryService directoryService;
+	
+	
 	@Override
 	public void setEventBaseService(IEventBaseService eventBaseService)
 	{
 		this.eventBaseService = eventBaseService;
+	}
+	
+	public void setDirectoryService(IDirectoryService directoryService)
+	{
+		this.directoryService = directoryService;
 	}
 
 	@Override
@@ -55,7 +59,7 @@ public class FileWatcherService implements IFileWatcherService, Runnable
 
 		//ToDo: Decide from where the Path is comming. 
 
-		File file = new File(path);
+		File file = directoryService.getCurrentCookingDirectory();
 		Path dir = file.toPath();
 
 		WatchKey key = null;
@@ -129,7 +133,14 @@ public class FileWatcherService implements IFileWatcherService, Runnable
 	@Override
 	public void addFileChangeEventListener(Object listener)
 	{
-		eventBaseService.addEventListener(FileWatcherEvent.class, listener);
+		try
+		{
+			eventBaseService.addEventListener(FileWatcherEvent.class, listener);
+		}
+		catch (NoCallbackPointException ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	@Override

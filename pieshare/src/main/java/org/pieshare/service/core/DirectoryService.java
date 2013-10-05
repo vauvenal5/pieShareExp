@@ -13,14 +13,16 @@ import java.io.File;
 public class DirectoryService implements IDirectoryService
 {
 
-	public File getUserDirectory()
+	@Override
+	public File getOSUserDirectory()
 	{
 		return new File(System.getProperty("user.home"));
 	}
 
-	public File getUserPieShareDirectory()
+	@Override
+	public File getTempPieShareDirectory()
 	{
-		File userPieShare = new File(getUserDirectory(), ".pieshare");
+		File userPieShare = new File(getOSUserDirectory(), ".pieshare");
 
 		if (!userPieShare.exists() || !userPieShare.isDirectory())
 		{
@@ -29,5 +31,16 @@ public class DirectoryService implements IDirectoryService
 
 		return userPieShare;
 
+	}
+
+	@Override
+	public File getCurrentCookingDirectory()
+	{
+		File w =  new File("../TestWorkingDirectory");
+		if (!w.exists() || !w.isDirectory())
+		{
+			w.mkdirs();
+		}
+		return w;
 	}
 }

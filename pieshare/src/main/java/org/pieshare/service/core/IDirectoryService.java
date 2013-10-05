@@ -13,7 +13,24 @@ import java.io.File;
 public interface IDirectoryService
 {
 
-	File getUserDirectory();
+	/*
+	 * Return the user Direcotry from the actual OS
+	 *
+	 * @return User directory as File
+	 */
+	File getOSUserDirectory();
 
-	File getUserPieShareDirectory();
+	/*
+	 * Returns the ".pieshare" folder which is located in the OS user direcotry
+	 *
+	 * @return PieShare folder as File
+	 */
+	File getTempPieShareDirectory();
+	
+	/*
+	 * Returns the actual working directory where the files to sync. are located
+	 *
+	 * @return Working folder as File
+	 */
+	File getCurrentCookingDirectory();
 }

@@ -7,6 +7,8 @@ package org.pieshare.domain;
 import java.io.File;
 import java.io.Serializable;
 import java.nio.file.WatchEvent;
+import org.pieshare.service.core.filehashgenerator.FileHashGeneratorException;
+import org.pieshare.service.core.filehashgenerator.IFileHashGenerator;
 
 /**
  *
@@ -17,38 +19,54 @@ import java.nio.file.WatchEvent;
 public class PieceOfPie implements Serializable
 {
 
-	private String name = "";
-	private long lastModified = 0;
+	private IPieceOfPieEntity pieceOfPieEntity;
+	private File file;
 	private WatchEvent.Kind<?> kind = null;
+	private IFileHashGenerator fileHashGenerator;
 
+	
 	public PieceOfPie(File file, WatchEvent.Kind<?> kind)
 	{
 		this.kind = kind;
-		this.name = file.getName();
-		this.lastModified = file.lastModified();
+		this.file = file;
+		//this.lastModified = file.lastModified();
+	}
+	
+	public PieceOfPie(File file)
+	{
+		this.file = file;
 	}
 
 	public PieceOfPie()
 	{
 	}
 
-	public String getName()
+	public void createNewPiece(String path) throws FileHashGeneratorException
 	{
-		return name;
+		pieceOfPieEntity = new PieceOfPieEntity();
+		File f = pieceOfPieEntity.autoFillValues(path);
+		String hash = fileHashGenerator.getMD5ChecksumHex(f);
+		pieceOfPieEntity.setFileHash(hash);
+	}
+	
+	public void setFileHashGenerator(IFileHashGenerator fileHashGenerator)
+	{
+		this.fileHashGenerator = fileHashGenerator;
+	}
+	
+	public IPieceOfPieEntity getPieceOfPieEntity() throws NoEntityException
+	{
+		if(pieceOfPieEntity == null)
+		{
+			throw new NoEntityException("No Entity is set in PiecOfPie");
+		}
+		
+		return pieceOfPieEntity;
 	}
 
-	public void setName(String name)
+	
+	public void setPieceOfPieEntity(IPieceOfPieEntity pieceOfPieEntity)
 	{
-		this.name = name;
-	}
-
-	public long getLastModified()
-	{
-		return lastModified;
-	}
-
-	public void setLastModified(long lastModified)
-	{
-		this.lastModified = lastModified;
-	}
+		this.pieceOfPieEntity = pieceOfPieEntity;
+	}	
 }

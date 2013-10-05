@@ -41,7 +41,7 @@ public class PropertiesReaderBaseService
 	{
 		try
 		{
-			FileInputStream fileInputStream = new FileInputStream(directoryService.getUserPieShareDirectory() + "/" + fileName);
+			FileInputStream fileInputStream = new FileInputStream(directoryService.getTempPieShareDirectory() + "/" + fileName);
 			properties.load(fileInputStream);
 			fileInputStream.close();
 		}

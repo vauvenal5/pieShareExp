@@ -37,7 +37,7 @@
 		<property name="eventBaseService" ref="eventBaseService"/>
 	</bean>
 	
-	<bean id="fileHashGenerator" class="org.pieshare.service.core.FileHashGenerator" lazy-init="true">
+	<bean id="fileHashGenerator" class="org.pieshare.service.core.filehashgenerator.FileHashGenerator" lazy-init="true">
 	</bean>
 
 	<bean id="cmdClientService" class="org.pieshare.service.pieception.CmdClientService" lazy-init="true">

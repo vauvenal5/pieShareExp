@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.pieshare.service.filewatcher;
+package org.pieshare.service.filewatcher.foldercontentreader;
 
 import java.util.List;
 import org.pieshare.domain.PieceOfPie;

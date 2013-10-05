@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.pieshare.service.event.IEventBaseService;
 import org.pieshare.service.core.ShutdownEvent;
+import org.pieshare.service.event.NoCallbackPointException;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -93,7 +94,14 @@ public class PieService implements IPieService
 	@Override
 	public void addShutdownEventListener(Object listener)
 	{
-		this.eventBaseService.addEventListener(ShutdownEvent.class, listener);
+		try
+		{
+			this.eventBaseService.addEventListener(ShutdownEvent.class, listener);
+		}
+		catch (NoCallbackPointException ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	@Override

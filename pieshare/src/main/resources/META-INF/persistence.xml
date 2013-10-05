@@ -9,6 +9,7 @@
         
         <!-- Show hibernate the persistent classes -->
         <class>org.pieshare.database.TestUserEntity</class>
+		<class>org.pieshare.domain.PieceOfPieEntity</class>
 		
 		<properties>
 			
