@@ -35,7 +35,7 @@ public class TestFileWatcher
 	}
 	
 	
-	@Test
+	
 	public void testFileWatcher()
 	{
 			

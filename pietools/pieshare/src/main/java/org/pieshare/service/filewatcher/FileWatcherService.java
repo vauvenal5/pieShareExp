@@ -129,7 +129,7 @@ public class FileWatcherService implements IFileWatcherService
 	@Override
 	public void addFileChangeEventListener(Object listener)
 	{
-		eventBaseService.addEventListener(FileWatcherEvent.class, listener);
+		//eventBaseService.addEventListener(FileWatcherEvent.class, listener);
 	}
 
 	@Override
