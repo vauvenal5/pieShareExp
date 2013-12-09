@@ -10,7 +10,7 @@ package org.pietools.pieplate.service.tcp;
  *
  * @author vauvenal5
  */
-class NewClass
+class TCPService
 {
     
 }
