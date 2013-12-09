@@ -9,7 +9,6 @@ import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.pieshare.service.core.PieLogger;
 import org.pieshare.service.event.EventCallback;
 import org.pieshare.service.filewatcher.FileWatcherEvent;
 import org.pieshare.service.filewatcher.FileWatcherService;
@@ -57,7 +56,7 @@ public class TestFileWatcher
 			}
 			catch (IOException ex)
 			{
-				PieLogger.error(this.getClass(), "Error creating new File during test fileWatcher");
+				//PieLogger.error(this.getClass(), "Error creating new File during test fileWatcher");
 				assertFalse(true);
 			}
 		}

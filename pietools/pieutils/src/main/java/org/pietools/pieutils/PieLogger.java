@@ -1,6 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package org.pietools.pieutils;
@@ -12,23 +11,35 @@ import org.slf4j.LoggerFactory;
  *
  * @author richy
  */
-public class PieLogger {
+public class PieLogger
+{
 
-    private static final Logger log = LoggerFactory.getLogger(PieLogger.class);
+	private static Logger mainLogger = LoggerFactory.getLogger(PieLogger.class);
 
-    public static void debug(String message) {
+	public static void debug(Class clazz, String message)
+	{
+		if (mainLogger.isDebugEnabled())
+		{
+			Logger logger = LoggerFactory.getLogger(clazz);
+			logger.debug(message);
+		}
+	}
 
-        log.debug(message);
-    }
-    
-    public static void error(String message) {
+	public static void error(Class clazz, String message)
+	{
+		if (mainLogger.isErrorEnabled())
+		{
+			Logger logger = LoggerFactory.getLogger(clazz);
+			logger.debug(message);
+		}
+	}
 
-        log.error(message);
-    }
-    
-    public static void info(String message) {
-
-        log.info(message);
-    }
-
+	public static void info(Class clazz, String message)
+	{
+		if (mainLogger.isInfoEnabled())
+		{
+			Logger logger = LoggerFactory.getLogger(clazz);
+			logger.info(message);
+		}
+	}
 }
