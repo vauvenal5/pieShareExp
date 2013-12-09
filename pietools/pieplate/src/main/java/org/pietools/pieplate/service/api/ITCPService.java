@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package org.pietools.pieplate.service.tcp;
+package org.pietools.pieplate.service.api;
 
 /**
  *
- * @author vauvenal5
+ * @author richy
  */
-class TCPService
+public interface ITCPService
 {
-    
+	
 }
